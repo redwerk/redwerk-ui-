@@ -1,19 +1,19 @@
 import type { VNode } from 'vue';
 import type { GlobalComponentConstructor } from '@/utils/ts-helper';
 
-export interface RButtonEvents {
+export interface RwButtonEvents {
   onClick?: () => void;
 }
 
-export interface RButtonProps extends RButtonEvents {
+export interface RwButtonProps extends RwButtonEvents {
   loading?: boolean;
   type?: 'button' | 'submit';
 }
 
-export interface RButtonSlots {
+export interface RwButtonSlots {
   default: () => VNode[];
 }
 
-type RButton = GlobalComponentConstructor<RButtonProps, RButtonSlots>;
+type RwButton = GlobalComponentConstructor<RwButtonProps, RwButtonSlots>;
 
-export default RButton;
+export default RwButton;
