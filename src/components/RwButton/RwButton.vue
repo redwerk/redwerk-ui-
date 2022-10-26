@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { RButtonEvents, RButtonProps } from './types';
+import type { RwButtonEvents, RwButtonProps } from './types';
 
-interface Props extends Omit<RButtonProps, keyof RButtonEvents> {}
+interface Props extends Omit<RwButtonProps, keyof RwButtonEvents> {}
 withDefaults(defineProps<Props>(), {
   type: 'button',
 });
