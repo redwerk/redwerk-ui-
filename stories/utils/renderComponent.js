@@ -1,4 +1,7 @@
 export const renderSlot = (slot, args) => {
+  if (!(slot in args)) {
+    return null;
+  }
   const vSlot = slot === 'default' ? 'v-slot' : `v-slot:${slot}`;
 
   return `<template v-if="${slot in args}" ${vSlot}>${args[slot]}</template>`;

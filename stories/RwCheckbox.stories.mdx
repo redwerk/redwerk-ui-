@@ -1,0 +1,67 @@
+import { Canvas, Meta, Story, ArgsTable, Source } from '@storybook/addon-docs';
+import RwCheckbox from '../src/components/RwCheckbox';
+import { renderComponent } from './utils/renderComponent';
+
+<Meta
+  title="RwCheckbox"
+  component={RwCheckbox}
+  argTypes= {{
+    default: {
+      control: false,
+      description: 'Slot to render checkbox',
+      table: {
+        type: { summary: 'string | VNode[]' },
+        defaultValue: { summary: undefined },
+      },
+    },
+    labelSlot: {
+      control: 'text',
+      description: 'Slot to render checkbox label',
+      table: {
+        type: { summary: 'string | VNode[]' },
+        defaultValue: { summary: undefined },
+      },
+    },
+    modelValue: {
+      control: 'boolean',
+      description: 'Value of checkbox',
+      table: {
+        type: { summary: 'boolean' },
+      },
+    },
+    'update:modelValue': {
+      control: false,
+      description: 'Model value update event',
+      table: {
+        type: { summary: '(value: boolean) => void'},
+      },
+    }
+  }}
+/>
+
+export const Template = renderComponent({ Component: RwCheckbox, slots: ['default', 'labelSlot'] });
+
+# RwCheckbox
+
+With `MDX`, we can define a story for `RwCheckbox` right in the middle of our
+Markdown documentation.
+
+<Canvas withSource='none'>
+  <Story
+    name="Default"
+    args={{
+      labelSlot: 'Checkbox',
+      modelValue: false
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Source
+  language='html'
+  dark
+  format={false}
+  code={'<RwCheckbox v-model="value">Checkbox</RwCheckbox>'}
+/>
+
+<ArgsTable story="Default" />
