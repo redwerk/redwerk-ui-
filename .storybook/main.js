@@ -16,12 +16,12 @@ module.exports = {
   "features": {
     "storyStoreV7": true
   },
-  webpackFinal: async (config) => {
-    config.output.publicPath = 'https://redwerk.github.io/redwerk-ui-/';
-    return config;
-  },
-  managerWebpack: async (config) => {
-    config.output.publicPath = 'https://redwerk.github.io/redwerk-ui-/';
-    return config;
+  viteFinal: (config, { configType }) => {
+    // some configs
+    if (configType === 'PRODUCTION') {
+      config.base = '/redwerk-ui-/';
+    }
+
+    return config
   },
 }
