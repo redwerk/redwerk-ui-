@@ -1,57 +1,59 @@
-import { Canvas, Meta, Story, ArgsTable, Source } from '@storybook/addon-docs';
+import {Canvas, Meta, Story, ArgsTable, Source} from '@storybook/addon-docs';
 import RwCheckbox from '../src/components/RwCheckbox';
-import { renderComponent } from './utils/renderComponent';
+import {renderComponent} from './utils/renderComponent';
+import {Types} from "./utils/componentTypes";
 
 <Meta
   title="RwCheckbox"
   component={RwCheckbox}
-  argTypes= {{
-    default: {
+  argTypes={{
+    contentSlot: {
       control: false,
-      description: 'Slot to render checkbox',
+      description: 'Slot to replace all checkbox content. Allows you to build your own checkbox',
       table: {
-        type: { summary: 'string | VNode[]' },
-        defaultValue: { summary: undefined },
+        type: {summary: Types.Slot},
+        defaultValue: {summary: undefined},
       },
     },
-    labelSlot: {
+    default: {
       control: 'text',
       description: 'Slot to render checkbox label',
       table: {
-        type: { summary: 'string | VNode[]' },
-        defaultValue: { summary: undefined },
+        type: {summary: Types.Slot},
+        defaultValue: {summary: undefined},
       },
     },
     modelValue: {
       control: 'boolean',
       description: 'Value of checkbox',
       table: {
-        type: { summary: 'boolean' },
+        type: {summary: Types.Boolean},
       },
     },
     'update:modelValue': {
       control: false,
       description: 'Model value update event',
       table: {
-        type: { summary: '(value: boolean) => void'},
+        type: {summary: '(value: boolean) => void'},
       },
     }
   }}
 />
 
-export const Template = renderComponent({ Component: RwCheckbox, slots: ['default', 'labelSlot'] });
+export const Template = renderComponent({Component: RwCheckbox, slots: ['default', 'contentSlot']});
 
 # RwCheckbox
 
 With `MDX`, we can define a story for `RwCheckbox` right in the middle of our
 Markdown documentation.
 
+
 <Canvas withSource='none'>
   <Story
     name="Default"
     args={{
-      labelSlot: 'Checkbox',
-      modelValue: false
+      default: 'Checkbox',
+      modelValue: false,
     }}>
     {Template.bind({})}
   </Story>
@@ -61,7 +63,7 @@ Markdown documentation.
   language='html'
   dark
   format={false}
-  code={'<RwCheckbox v-model="value">Checkbox</RwCheckbox>'}
+  code={'<RwCheckbox v-model="value">Lorem ipsum</RwCheckbox>'}
 />
 
-<ArgsTable story="Default" />
+<ArgsTable story="Default"/>

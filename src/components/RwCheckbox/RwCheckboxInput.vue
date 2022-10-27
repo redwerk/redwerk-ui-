@@ -14,14 +14,16 @@ const selected = useVModel(props, 'modelValue', emit);
 </script>
 
 <template>
-  <input
-    v-model="selected"
-    :checked="selected"
-    class="rw-checkbox__input"
-    type="checkbox"
-  >
+  <span>
+    <input
+      v-model="selected"
+      :checked="selected"
+      class="rw-checkbox__input"
+      type="checkbox"
+    >
 
-  <span
-    class="rw-checkbox__checkmark"
-  />
+    <span
+      class="rw-checkbox__checkmark"
+    />
+  </span>
 </template>

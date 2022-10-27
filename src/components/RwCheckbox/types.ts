@@ -11,6 +11,7 @@ export interface RwCheckboxProps extends RwCheckboxEvents {
 
 export interface RwCheckboxSlots {
   default: () => VNode[];
+  contentSlot: () => VNode[];
 }
 
 type RwCheckbox = GlobalComponentConstructor<RwCheckboxProps, RwCheckboxSlots>;
