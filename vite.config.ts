@@ -14,9 +14,6 @@ const components = getDirectories(resolve(__dirname, 'src/components/'));
 components.forEach((component) => {
   input[component] = resolve(__dirname, `src/components/${component}`);
 });
-
-const types = getDirectories(resolve(__dirname, 'src/components/'));
-
 // https://vitejs.dev/config/
 
 export default defineConfig({
