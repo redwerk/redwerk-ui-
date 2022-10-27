@@ -16,8 +16,21 @@ module.exports = {
   "features": {
     "storyStoreV7": true
   },
+  webpackFinal: async (config, { configType }) => {
+    if (configType === 'PRODUCTION') {
+      config.output.publicPath = '/redwerk-ui-/';
+    }
+
+    return config;
+  },
+  managerWebpack: async (config, { configType }) => {
+    if (configType === 'PRODUCTION') {
+      config.output.publicPath = '/redwerk-ui-/';
+    }
+
+    return config;
+  },
   viteFinal: (config, { configType }) => {
-    // some configs
     if (configType === 'PRODUCTION') {
       config.base = '/redwerk-ui-/';
     }
