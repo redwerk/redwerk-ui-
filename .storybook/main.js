@@ -16,4 +16,8 @@ module.exports = {
   "features": {
     "storyStoreV7": true
   },
+  webpackFinal: async (config) => {
+    config.output.publicPath = 'https://redwerk.github.io/redwerk-ui-';
+    return config;
+  },
 }
