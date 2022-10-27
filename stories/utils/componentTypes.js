@@ -8,5 +8,6 @@ export const Types = {
   String: 'string',
   Html: 'VNode',
   Boolean: 'boolean',
+  Number: 'number',
   Slot: severalTypes(['string', 'VNode']),
 };
