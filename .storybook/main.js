@@ -33,7 +33,6 @@ module.exports = {
   viteFinal: (config, { configType }) => {
     if (configType === 'PRODUCTION') {
       config.base = '/redwerk-ui-/';
-      config.sanitizeFileName = false;
     }
 
     return config
