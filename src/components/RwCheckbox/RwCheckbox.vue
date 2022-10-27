@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core';
-import type { RwCheckboxEvents, RwCheckboxProps } from './types';
+// import type { RwCheckboxEvents, RwCheckboxProps } from './types';
 import RwCheckboxLabel from './RwCheckboxLabel.vue';
 import RwCheckboxInput from './RwCheckboxInput.vue';
 
-interface Props extends Omit<RwCheckboxProps, keyof RwCheckboxEvents> {}
-const props = defineProps<Props>();
+interface RwCheckboxProps {
+  modelValue: boolean;
+}
+
+// interface Props extends Omit<RwCheckboxProps, keyof RwCheckboxEvents> {}
+const props = defineProps<RwCheckboxProps>();
 
 interface Emits {
   (e: 'update:modelValue', value: boolean): void;
@@ -17,14 +21,15 @@ const selected = useVModel(props, 'modelValue', emit);
 
 <template>
   <label class="rw-checkbox">
-    <!--    <slot>-->
-    <RwCheckboxInput
-      v-model="selected"
-    />
+    <slot
+      name="contentSlot"
+      v-bind="{ modelValue: selected }"
+    >
+      <RwCheckboxInput v-model="selected" />
 
-    <RwCheckboxLabel>
-      <slot name="labelSlot" />
-    </RwCheckboxLabel>
-    <!--    </slot>-->
+      <RwCheckboxLabel>
+        <slot />
+      </RwCheckboxLabel>
+    </slot>
   </label>
 </template>

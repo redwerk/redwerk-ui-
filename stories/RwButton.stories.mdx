@@ -1,6 +1,7 @@
 import { Canvas, Meta, Story, ArgsTable, Source } from '@storybook/addon-docs';
 import RwButton from '../src/components/RwButton';
 import { renderComponent } from './utils/renderComponent';
+import {severalTypes, Types} from "./utils/componentTypes";
 
 <Meta
   title="RwButton"
@@ -10,7 +11,7 @@ import { renderComponent } from './utils/renderComponent';
       control: 'text',
       description: 'Slot to render button text',
       table: {
-        type: { summary: 'string' },
+        type: { summary: Types.String },
         defaultValue: { summary: undefined },
       },
     },
@@ -18,7 +19,7 @@ import { renderComponent } from './utils/renderComponent';
       control: 'boolean',
       description: 'Button loading state',
       table: {
-        type: { summary: 'boolean' },
+        type: { summary: Types.Boolean },
         defaultValue: { summary: undefined },
       },
     },
@@ -26,7 +27,7 @@ import { renderComponent } from './utils/renderComponent';
       control: 'text',
       description: 'Slot to render button text',
       table: {
-        type: { summary: 'string' },
+        type: { summary: Types.Slot },
         defaultValue: { summary: undefined },
       },
     },
@@ -36,6 +37,14 @@ import { renderComponent } from './utils/renderComponent';
       table: {
         type: { summary: '() => void' },
         defaultValue: { summary: undefined },
+      },
+    },
+    type: {
+      control: false,
+      description: 'Slot to render button text',
+      table: {
+        type: { summary: severalTypes(['submit', 'button']) },
+        defaultValue: { summary: 'button' },
       },
     },
   }}
@@ -53,7 +62,8 @@ Markdown documentation.
     name="Default"
     args={{
       default: 'Button',
-    }}>
+    }}
+  >
     {Template.bind({})}
   </Story>
 </Canvas>
