@@ -1,6 +1,7 @@
 import { Canvas, Meta, Story, ArgsTable, Source } from '@storybook/addon-docs';
 import { renderComponent } from './utils/renderComponent';
 import RwProgressBar from "../src/components/RwProgressBar";
+import {Types} from "./utils/componentTypes";
 
 <Meta
   title="RwProgressBar"
@@ -12,7 +13,7 @@ import RwProgressBar from "../src/components/RwProgressBar";
         'vertical',
       ],
       table: {
-        type: { summary: 'string' },
+        type: { summary: Types.String },
         defaultValue: { summary: undefined },
       },
     },
