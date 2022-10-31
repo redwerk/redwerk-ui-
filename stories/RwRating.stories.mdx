@@ -54,7 +54,9 @@ Markdown documentation.
 <Canvas withSource='none'>
   <Story
     name="Default"
-    args={{}}>
+    args={{
+      modelValue: 4,
+    }}>
     {Template.bind({})}
   </Story>
 </Canvas>
@@ -63,7 +65,7 @@ Markdown documentation.
   language='html'
   dark
   format={false}
-  code={'<RwRating v-model="value" :count="5"> <template #fullSlot>full</template> <template #partSlot>part</template> <template #emptySlot>empty</template> </RwRating>'}
+  code={'<RwRating v-model="value" />'}
 />
 
 <ArgsTable story="Default" />

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 // import { RwRatingEvents, RwRatingProps } from './types';
 // interface Props extends Omit<RwRatingProps, keyof RwRatingEvents> {}
 
@@ -23,14 +23,16 @@ const emit = defineEmits<Emits>();
 
 const value = useVModel(props, 'modelValue', emit);
 
+const currentIndex = ref(value.value);
+
 function getCurrentIconName(countNumber: number) {
-  if (countNumber <= value.value) {
+  if (countNumber <= Math.floor(currentIndex.value)) {
     return 'fullSlot';
   }
 
-  // if (countNumber <= value.value && !Number.isInteger(value.value)) {
-  //   return 'partSlot';
-  // }
+  if (countNumber === Math.ceil(currentIndex.value)) {
+    return 'partSlot';
+  }
 
   return 'emptySlot';
 }
@@ -45,11 +47,11 @@ const icons = computed(() => {
 });
 
 function setReviewRating(item: number) {
-  console.log('setReviewRating', icons.value);
+  currentIndex.value = item;
 }
 
 function setDefaultRating() {
-  console.log('setReviewRating');
+  currentIndex.value = value.value;
 }
 </script>
 
@@ -58,9 +60,12 @@ function setDefaultRating() {
     <label
       class="rw-rating__item"
       v-for="(icon, index) in icons"
+      @focusin="setReviewRating(index + 1)"
+      @focusout="setDefaultRating()"
       @mouseover="setReviewRating(index + 1)"
       @mouseout="setDefaultRating()"
       :key="index"
+      tabindex="0"
     >
       <input
         class="rw-rating__item-input"
@@ -69,10 +74,26 @@ function setDefaultRating() {
         name="rating"
         type="radio"
       >
+      <slot
+        name="emptySlot"
+        v-if="icon === 'emptySlot'"
+      >
+        empty
+      </slot>
 
       <slot
-        :name="icon"
-      />
+        name="fullSlot"
+        v-else-if="icon === 'fullSlot'"
+      >
+        full
+      </slot>
+
+      <slot
+        name="partSlot"
+        v-else
+      >
+        part
+      </slot>
     </label>
   </div>
 </template>
@@ -80,6 +101,8 @@ function setDefaultRating() {
 <style scoped lang="scss">
 .rw-rating {
   &__item {
+    cursor: pointer;
+
     &-input {
       display: none;
     }
