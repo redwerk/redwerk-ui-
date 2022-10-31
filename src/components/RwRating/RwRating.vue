@@ -2,8 +2,6 @@
 import { useVModel } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import RwIcon from '../RwIcon/RwIcon.vue';
-// import { RwRatingEvents, RwRatingProps } from './types';
-// interface Props extends Omit<RwRatingProps, keyof RwRatingEvents> {}
 
 interface RwRatingEvents {
   ['onUpdate:modelValue']: () => void;
@@ -24,14 +22,14 @@ const emit = defineEmits<Emits>();
 
 const value = useVModel(props, 'modelValue', emit);
 
-const currentIndex = ref(value.value);
+const focusedStar = ref(value.value);
 
 function getCurrentIconName(countNumber: number) {
-  if (countNumber <= Math.floor(currentIndex.value)) {
+  if (countNumber <= Math.floor(focusedStar.value)) {
     return 'fullSlot';
   }
 
-  if (countNumber === Math.ceil(currentIndex.value)) {
+  if (countNumber === Math.ceil(focusedStar.value)) {
     return 'partSlot';
   }
 
@@ -40,23 +38,23 @@ function getCurrentIconName(countNumber: number) {
 
 const icons = computed(() => {
   const iconList: string[] = [];
-  for (let i = 0; i < props.count; i += 1) {
-    iconList.push(getCurrentIconName(i + 1));
+  for (let i = 1; i < props.count + 1; i += 1) {
+    iconList.push(getCurrentIconName(i));
   }
 
   return iconList;
 });
 
 function setReviewValue(item: number) {
-  currentIndex.value = item;
+  focusedStar.value = item;
 }
 
 function setInitialValue() {
-  currentIndex.value = value.value;
+  focusedStar.value = value.value;
 }
 
 function setValue(item: number) {
-  currentIndex.value = item;
+  focusedStar.value = item;
   value.value = item;
 }
 </script>
