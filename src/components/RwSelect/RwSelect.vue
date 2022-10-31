@@ -4,6 +4,7 @@ import {
   Listbox, ListboxButton, ListboxOption, ListboxOptions, ListboxLabel,
 } from '@headlessui/vue';
 import { useVModel } from '@vueuse/core';
+import RwIcon from '../RwIcon/RwIcon.vue';
 import type { ParseFunction } from './types';
 
 interface RwSelectProps {
@@ -67,7 +68,7 @@ const selectedOption = computed(() => {
   return options.value.find((option) => option.isSelected);
 });
 
-const selectedOptionTitle = computed(() => selectedOption.value?.title || '');
+const selectedOptionTitle = computed(() => selectedOption.value?.title || null);
 const selectedOptionItem = computed(() => selectedOption.value?.item || null);
 </script>
 
@@ -78,6 +79,7 @@ const selectedOptionItem = computed(() => selectedOption.value?.item || null);
     :multiple="multiple"
     :disabled="disabled"
     v-slot="{ open }"
+    as="div"
   >
     <slot
       name="labelSlot"
@@ -99,10 +101,11 @@ const selectedOptionItem = computed(() => selectedOption.value?.item || null);
     </slot>
 
     <slot
-      name="activator"
+      name="activatorSlot"
       v-bind="{
         value: selectedValue,
         item: selectedOptionItem,
+        open,
       }"
     >
       <ListboxButton
@@ -113,13 +116,48 @@ const selectedOptionItem = computed(() => selectedOption.value?.item || null);
           },
         ]"
       >
-        {{ selectedOptionTitle }}
+        <slot
+          v-if="selectedOptionTitle"
+          name="selectedSlot"
+          v-bind="{
+            value: selectedValue,
+            item: selectedOptionItem,
+            open,
+          }"
+        >
+          {{ selectedOptionTitle }}
+        </slot>
+
+        <slot
+          v-else
+          name="placeholderSlot"
+        />
+
+        <slot
+          name="iconSlot"
+          v-bind="{
+            value: selectedValue,
+            item: selectedOptionItem,
+            open,
+          }"
+        >
+          <RwIcon
+            v-if="!open"
+            name="mdi:chevron-down"
+          />
+          <RwIcon
+            v-else
+            name="mdi:chevron-up"
+          />
+        </slot>
       </ListboxButton>
     </slot>
 
     <ListboxOptions
+      v-show="open"
+      static
       :class="[
-        'rw-select-list',
+        'rw-select__list',
         {
           'rw-select__list__active': open,
         },
@@ -141,7 +179,7 @@ const selectedOptionItem = computed(() => selectedOption.value?.item || null);
         :disabled="option.isDisabled"
       >
         <slot
-          name="item"
+          name="itemSlot"
           v-bind="{
             item: option.item,
             active,
@@ -155,3 +193,22 @@ const selectedOptionItem = computed(() => selectedOption.value?.item || null);
     </ListboxOptions>
   </Listbox>
 </template>
+
+<style lang="scss">
+.rw-select {
+  position: relative;
+
+  &__button {
+    display: flex;
+    align-items: center;
+  }
+
+  &__list {
+    position: absolute;
+
+    &-item {
+      cursor: pointer;
+    }
+  }
+}
+</style>

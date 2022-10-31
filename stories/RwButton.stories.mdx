@@ -2,6 +2,7 @@ import { Canvas, Meta, Story, ArgsTable, Source } from '@storybook/addon-docs';
 import RwButton from '../src/components/RwButton';
 import { renderComponent } from './utils/renderComponent';
 import {severalTypes, Types} from "./utils/componentTypes";
+import {getSourceCode} from "./utils/getSourceCode";
 
 <Meta
   title="RwButton"
@@ -68,11 +69,13 @@ Markdown documentation.
   </Story>
 </Canvas>
 
+export const DEFAULT_CODE = await getSourceCode('RwButton', 'DefaultCode')
+
 <Source
   language='html'
   dark
   format={false}
-  code={'<RwButton>Button</RwButton>'}
+  code={DEFAULT_CODE}
 />
 
 <ArgsTable story="Default" />
