@@ -1,0 +1,127 @@
+import {Canvas, Meta, Story, ArgsTable, Source} from '@storybook/addon-docs';
+import RwSelect from '../../src/components/RwSelect';
+import {renderComponent} from '../utils/renderComponent';
+import {Types} from "../utils/componentTypes";
+import {getSourceCode} from "../utils/getSourceCode";
+
+<Meta
+  title="RwSelect"
+  component={RwSelect}
+  argTypes={{
+    default: {
+      control: 'text',
+      description: 'Slot to render select label text',
+      table: {
+        type: {summary: Types.Slot},
+        defaultValue: {summary: undefined},
+      },
+    },
+    labelSlot: {
+      control: false,
+      description: 'Slot to replace select label',
+      table: {
+        type: {summary: Types.Slot},
+        defaultValue: {summary: undefined},
+      },
+    },
+    activatorSlot: {
+      control: false,
+      description: 'Slot to replace select activator',
+      table: {
+        type: {summary: Types.Slot},
+        defaultValue: {summary: undefined},
+      },
+    },
+    placeholderSlot: {
+      control: 'text',
+      description: 'Slot to render select placeholder text',
+      table: {
+        type: {summary: Types.Slot},
+        defaultValue: {summary: undefined},
+      },
+    },
+    itemSlot: {
+      control: false,
+      description: 'Slot to customize option',
+      table: {
+        type: {summary: Types.Slot},
+        defaultValue: {summary: undefined},
+      },
+    },
+    selectedSlot: {
+      control: false,
+      description: 'Slot to customize selected option',
+      table: {
+        type: {summary: Types.Slot},
+        defaultValue: {summary: undefined},
+      },
+    },
+    iconSlot: {
+      control: false,
+      description: 'Slot to customize icon at the right position',
+      table: {
+        type: {summary: Types.Slot},
+        defaultValue: {summary: undefined},
+      },
+    },
+    'update:modelValue': {
+      control: false,
+      description: 'Value update event',
+      table: {
+        type: {summary: '(value: any) => void'},
+        defaultValue: {summary: undefined},
+      },
+    },
+  }}
+/>
+
+export const Template = renderComponent({
+  Component: RwSelect,
+  slots: [
+    'default',
+    'labelSlot',
+    'activatorSlot',
+    'itemSlot',
+    'placeholderSlot',
+    'selectedSlot',
+    'iconSlot'
+  ],
+  vModels: [
+    'modelValue'
+  ]
+});
+
+# RwSelect
+
+With `MDX`, we can define a story for `RwSelect` right in the middle of our
+Markdown documentation.
+
+<Canvas withSource='none'>
+  <Story
+    name="Default"
+    args={{
+      default: 'Example',
+      placeholderSlot: 'Select item',
+      modelValue: null,
+      itemValue: 'id',
+      itemTitle: 'label',
+      items: [
+        {id: 1, label: 'Test 1'},
+        {id: 2, label: 'Test 2'},
+      ]
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+export const DEFAULT_CODE = await getSourceCode('RwSelect', 'DefaultCode')
+
+<Source
+  language='html'
+  dark
+  format={false}
+  code={DEFAULT_CODE}
+/>
+
+<ArgsTable story="Default"/>

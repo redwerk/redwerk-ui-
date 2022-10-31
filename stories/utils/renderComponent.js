@@ -6,10 +6,27 @@ export const renderSlot = (slot, args) => {
 
 export const renderSlots = (slots, args) => slots.map((slot) => renderSlot(slot, args)).join('');
 
-export const renderComponent = ({ Component, slots }) => (args) => ({
+export const renderVModel = (model) => {
+  const vModel = model === 'modelValue' ? 'v-model' : `v-model:${model}`;
+
+  return `${vModel}="${model}"`;
+};
+
+export const renderVModels = (vModels) => vModels.map((model) => renderVModel(model)).join(' ');
+
+export const renderComponent = ({ Component, slots = [], vModels = [] }) => (args) => ({
   components: { Component },
+  data() {
+    const vModelData = {};
+
+    vModels.forEach((model) => {
+      vModelData[model] = args[model];
+    });
+
+    return vModelData;
+  },
   setup() {
     return { args };
   },
-  template: `<Component v-bind="args">${renderSlots(slots, args)}</Component>`,
+  template: `<Component v-bind="args" ${renderVModels(vModels)}>${renderSlots(slots, args)}</Component>`,
 });

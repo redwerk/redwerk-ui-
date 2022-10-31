@@ -2,6 +2,7 @@ import {Canvas, Meta, Story, ArgsTable, Source} from '@storybook/addon-docs';
 import RwCheckbox from '../src/components/RwCheckbox';
 import {renderComponent} from './utils/renderComponent';
 import {Types} from "./utils/componentTypes";
+import {getSourceCode} from "./utils/getSourceCode";
 
 <Meta
   title="RwCheckbox"
@@ -40,7 +41,11 @@ import {Types} from "./utils/componentTypes";
   }}
 />
 
-export const Template = renderComponent({Component: RwCheckbox, slots: ['default', 'contentSlot']});
+export const Template = renderComponent({
+  Component: RwCheckbox,
+  slots: ['default', 'contentSlot'],
+  vModels: ['modelValue']
+});
 
 # RwCheckbox
 
@@ -59,11 +64,13 @@ Markdown documentation.
   </Story>
 </Canvas>
 
+export const DEFAULT_CODE = await getSourceCode('RwCheckbox', 'DefaultCode')
+
 <Source
   language='html'
   dark
   format={false}
-  code={'<RwCheckbox v-model="value">Lorem ipsum</RwCheckbox>'}
+  code={DEFAULT_CODE}
 />
 
 <ArgsTable story="Default"/>

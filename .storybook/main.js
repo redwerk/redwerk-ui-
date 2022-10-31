@@ -16,6 +16,7 @@ module.exports = {
   "features": {
     "storyStoreV7": true
   },
+  staticDirs: ['../stories/examples'],
   webpackFinal: async (config, { configType }) => {
     if (configType === 'PRODUCTION') {
       config.output.publicPath = '/redwerk-ui-/';
