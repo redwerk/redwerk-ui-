@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core';
 import { computed, ref } from 'vue';
+import RwIcon from '../RwIcon/RwIcon.vue';
 // import { RwRatingEvents, RwRatingProps } from './types';
 // interface Props extends Omit<RwRatingProps, keyof RwRatingEvents> {}
 
@@ -46,12 +47,17 @@ const icons = computed(() => {
   return iconList;
 });
 
-function setReviewRating(item: number) {
+function setReviewValue(item: number) {
   currentIndex.value = item;
 }
 
-function setDefaultRating() {
+function setInitialValue() {
   currentIndex.value = value.value;
+}
+
+function setValue(item: number) {
+  currentIndex.value = item;
+  value.value = item;
 }
 </script>
 
@@ -60,10 +66,11 @@ function setDefaultRating() {
     <label
       class="rw-rating__item"
       v-for="(icon, index) in icons"
-      @focusin="setReviewRating(index + 1)"
-      @focusout="setDefaultRating()"
-      @mouseover="setReviewRating(index + 1)"
-      @mouseout="setDefaultRating()"
+      @focusin="setReviewValue(index + 1)"
+      @focusout="setInitialValue()"
+      @mouseover="setReviewValue(index + 1)"
+      @mouseout="setInitialValue()"
+      @keyup.enter="setValue(index + 1)"
       :key="index"
       tabindex="0"
     >
@@ -78,21 +85,21 @@ function setDefaultRating() {
         name="emptySlot"
         v-if="icon === 'emptySlot'"
       >
-        empty
+        <RwIcon name="mdi:star-outline" />
       </slot>
 
       <slot
         name="fullSlot"
         v-else-if="icon === 'fullSlot'"
       >
-        full
+        <RwIcon name="mdi:star" />
       </slot>
 
       <slot
         name="partSlot"
         v-else
       >
-        part
+        <RwIcon name="mdi:star-half-full" />
       </slot>
     </label>
   </div>

@@ -2,6 +2,7 @@ import { Canvas, Meta, Story, ArgsTable, Source } from '@storybook/addon-docs';
 import { renderComponent } from './utils/renderComponent';
 import RwRating from "../src/components/RwRating";
 import {Types} from "./utils/componentTypes";
+import {getSourceCode} from "./utils/getSourceCode";
 
 <Meta
   title="RwRating"
@@ -44,7 +45,7 @@ import {Types} from "./utils/componentTypes";
   }}
 />
 
-export const Template = renderComponent({ Component: RwRating, slots: ['default'] });
+export const Template = renderComponent({ Component: RwRating, slots: ['default'], vModels: ['modelValue'] });
 
 # RwRating
 
@@ -55,17 +56,20 @@ Markdown documentation.
   <Story
     name="Default"
     args={{
-      modelValue: 4,
+      modelValue: 3.5,
     }}>
     {Template.bind({})}
   </Story>
 </Canvas>
 
+export const DEFAULT_CODE = await getSourceCode('RwRating', 'DefaultCode')
+
+
 <Source
   language='html'
   dark
   format={false}
-  code={'<RwRating v-model="value" />'}
+  code={DEFAULT_CODE}
 />
 
 <ArgsTable story="Default" />
