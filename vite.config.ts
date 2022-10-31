@@ -19,6 +19,7 @@ components.forEach((component) => {
 export default defineConfig({
   plugins: [vue()],
   build: {
+    target: ['edge90', 'chrome90', 'firefox90', 'safari15'],
     emptyOutDir: false,
     outDir: 'dist',
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
