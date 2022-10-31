@@ -34,6 +34,7 @@ module.exports = {
   viteFinal: (config, { configType }) => {
     if (configType === 'PRODUCTION') {
       config.base = '/redwerk-ui-/';
+      config.target = ['edge90', 'chrome90', 'firefox90', 'safari15'];
     }
 
     return config
