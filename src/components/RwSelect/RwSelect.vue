@@ -7,7 +7,7 @@ import { useVModel } from '@vueuse/core';
 import RwIcon from '../RwIcon/RwIcon.vue';
 import type { ParseFunction } from './types';
 
-interface RwSelectProps {
+interface Props {
   modelValue: any,
   items?: any[],
   itemValue?: string | ParseFunction,
@@ -17,7 +17,7 @@ interface RwSelectProps {
   disabled?: boolean,
   required?: boolean,
 }
-const props = withDefaults(defineProps<RwSelectProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   items: () => [],
   itemValue: undefined,
   itemTitle: undefined,

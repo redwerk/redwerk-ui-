@@ -1,8 +1,7 @@
-import type { VNode } from 'vue';
-import type { GlobalComponentConstructor } from '@/utils/ts-helper';
+import type { VNode, ComponentPublicInstance } from 'vue';
 
 export interface RwRatingEvents {
-  ['onUpdate:modelValue']: () => void;
+  ['onUpdate:modelValue']: (value: number) => void;
 }
 
 export interface RwRatingProps extends RwRatingEvents {
@@ -14,6 +13,4 @@ export interface RwRatingSlots {
   contentSlot: () => VNode[];
 }
 
-type RwRating = GlobalComponentConstructor<RwRatingProps, RwRatingSlots>;
-
-export default RwRating;
+export interface RwRatingComponent extends ComponentPublicInstance<RwRatingProps> {}

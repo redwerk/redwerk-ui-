@@ -13,6 +13,9 @@
   ],
   "compilerOptions": {
     "outDir": "dist",
-    "declaration": true
+    "declaration": true,
+    "paths": {
+      "@iconify/vue": ["./node_modules/@iconify/vue"]
+    }
   }
 }

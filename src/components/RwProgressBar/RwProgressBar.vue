@@ -2,15 +2,13 @@
 import { computed } from 'vue';
 import { percentage } from '../../utils/percentage';
 
-interface RwProgressBarEvents {}
-interface RwProgressBarProps extends RwProgressBarEvents {
+interface Props {
   min?: number,
   max?: number,
   value: number,
   orientation?: 'horizontal' | 'vertical',
 }
-
-const props = withDefaults(defineProps<RwProgressBarProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   min: 0,
   max: 100,
   value: 0,
