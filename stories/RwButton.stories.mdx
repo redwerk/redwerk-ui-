@@ -48,6 +48,47 @@ import {getSourceCode} from "./utils/getSourceCode";
         defaultValue: { summary: 'button' },
       },
     },
+    class: {
+      control: 'select',
+      description: 'Variants',
+      table: {
+        type: { summary: Types.String },
+        defaultValue: { summary: undefined },
+      },
+      options: [
+        '',
+        'primary',
+        'secondary',
+      ],
+    },
+    href: {
+      control: 'text',
+      description: 'Url to external resource',
+      table: {
+        type: { summary: Types.String },
+        defaultValue: { summary: undefined },
+      },
+    },
+    target: {
+      control: 'select',
+      description: 'Variants',
+      table: {
+        type: { summary: severalTypes([
+          '_self',
+          '_blank',
+          '_parent',
+          '_top',
+        ]) },
+        defaultValue: { summary: undefined },
+      },
+      options: [
+        '',
+        '_self',
+        '_blank',
+        '_parent',
+        '_top',
+      ],
+    }
   }}
 />
 
@@ -63,6 +104,7 @@ Markdown documentation.
     name="Default"
     args={{
       default: 'Button',
+      class: 'secondary',
     }}
   >
     {Template.bind({})}
