@@ -1,8 +1,7 @@
-import type { VNode } from 'vue';
-import type { GlobalComponentConstructor } from '@/utils/ts-helper';
+import type { VNode, ComponentPublicInstance } from 'vue';
 
 export interface RwCheckboxEvents {
-  ['onUpdate:modelValue']: () => void;
+  ['onUpdate:modelValue']: (value: boolean) => void;
 }
 
 export interface RwCheckboxProps extends RwCheckboxEvents {
@@ -14,6 +13,18 @@ export interface RwCheckboxSlots {
   contentSlot: () => VNode[];
 }
 
-type RwCheckbox = GlobalComponentConstructor<RwCheckboxProps, RwCheckboxSlots>;
+export interface RwCheckboxComponent extends ComponentPublicInstance<RwCheckboxProps> {}
 
-export default RwCheckbox;
+export type RwCheckboxInputEvents = RwCheckboxEvents;
+export type RwCheckboxInputProps = RwCheckboxProps;
+export interface RwCheckboxInputSlots {}
+
+export interface RwCheckboxInputComponent extends ComponentPublicInstance<RwCheckboxInputProps> {}
+
+export interface RwCheckboxLabelEvents {}
+export interface RwCheckboxLabelProps {}
+export interface RwCheckboxLabelSlots {
+  default: () => VNode[];
+}
+
+export interface RwCheckboxLabelComponent extends ComponentPublicInstance<RwCheckboxLabelProps> {}

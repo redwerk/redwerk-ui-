@@ -1,10 +1,10 @@
-<script  lang="ts" setup="">
+<script lang="ts" setup>
 import { Icon } from '@iconify/vue';
 
-interface RwIconProps {
+interface Props {
   name: string
 }
-defineProps<RwIconProps>();
+defineProps<Props>();
 
 </script>
 

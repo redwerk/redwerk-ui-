@@ -1,20 +1,23 @@
 {
   "name": "redwerk-ui",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "files": [
-    "dist"
+    "src",
+    "dist",
+    "types"
   ],
-  "main": "./dist/redwerk-ui.umd.js",
-  "module": "./dist/redwerk-ui.es.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "unpkg": "./dist/index.js",
+  "jsdelivr": "./dist/index.js",
   "exports": {
     ".": {
-      "import": "./dist/redwerk-ui.es.js",
-      "require": "./dist/redwerk-ui.umd.js"
-    }
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css"
   },
-  "unpkg": "./dist/redwerk-ui.umd.js",
-  "jsdelivr": "./dist/redwerk-ui.umd.js",
-  "types": "./dist/types/redwerk-ui.d.ts",
+  "types": "./dist/types/types.d.ts",
   "homepage": "http://redwerk.github.io/redwerk-ui-",
   "scripts": {
     "dev": "vite",
@@ -28,14 +31,17 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
+  "peerDependencies": {
+    "vue": "^3.2.21"
+  },
   "dependencies": {
     "@headlessui/vue": "^1.7.3",
     "@vueuse/core": "^9.4.0",
+    "@iconify/vue": "^4.0.0",
     "vue": "^3.2.41"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
-    "@iconify/vue": "^4.0.0",
     "@rushstack/eslint-patch": "^1.1.4",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-docs": "^6.5.13",
@@ -63,8 +69,9 @@
     "sass": "^1.55.0",
     "storybook-dark-mode": "^1.1.2",
     "typescript": "~4.8.4",
-    "vite": "^3.1.8",
-    "vite-plugin-dts": "^1.6.6",
+    "vite": "^3.2.4",
+    "vite-dts": "^1.0.4",
+    "vite-plugin-dts": "^1.7.1",
     "vitest": "^0.24.3",
     "vue-loader": "^16.8.3",
     "vue-tsc": "^1.0.8"

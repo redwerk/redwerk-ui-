@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <span class="rw-checkbox__text">
+  <span class="rw-checkbox-label">
     <slot />
   </span>
 </template>

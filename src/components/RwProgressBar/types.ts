@@ -1,5 +1,4 @@
-import type { VNode } from 'vue';
-import type { GlobalComponentConstructor } from '@/utils/ts-helper';
+import type { VNode, ComponentPublicInstance } from 'vue';
 
 export interface RwProgressBarEvents {}
 
@@ -14,6 +13,4 @@ export interface RwProgressBarSlots {
   default: () => VNode[];
 }
 
-type RwProgressBar = GlobalComponentConstructor<RwProgressBarProps, RwProgressBarSlots>;
-
-export default RwProgressBar;
+export interface RwProgressBarComponent extends ComponentPublicInstance<RwProgressBarProps> {}

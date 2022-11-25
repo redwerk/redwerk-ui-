@@ -3,15 +3,11 @@ import { useVModel } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import RwIcon from '../RwIcon/RwIcon.vue';
 
-interface RwRatingEvents {
-  ['onUpdate:modelValue']: () => void;
-}
-interface RwRatingProps extends RwRatingEvents {
+interface Props {
   modelValue: number;
   count?: number;
 }
-
-const props = withDefaults(defineProps<RwRatingProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   count: 5,
 });
 
