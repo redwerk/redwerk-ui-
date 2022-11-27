@@ -4,10 +4,22 @@ export function severalTypes(types) {
   }
   return types.join(' | ');
 }
+
 export const Types = {
   String: 'string',
   Html: 'VNode',
   Boolean: 'boolean',
   Number: 'number',
-  Slot: severalTypes(['string', 'VNode']),
+  Slot: 'VNode[]',
 };
+
+export function prettyFunctionParams(params) {
+  return JSON.stringify(params, null, '\t');
+}
+
+export function prettyFunction(params, returns) {
+  const paramsString = prettyFunctionParams(params);
+  const returnString = Array.isArray(returns) ? severalTypes(returns) : returns;
+
+  return `(${paramsString}) => ${returnString}`;
+}

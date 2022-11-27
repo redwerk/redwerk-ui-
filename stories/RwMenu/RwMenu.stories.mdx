@@ -1,0 +1,101 @@
+import {Canvas, Meta, Story, ArgsTable, Source} from '@storybook/addon-docs';
+import RwMenu from '../../src/components/RwMenu/RwMenu.vue';
+import RwMenuItem from '../../src/components/RwMenu/RwMenuItem.vue';
+import RwButton from '../../src/components/RwButton/RwButton.vue';
+import {renderComponent} from '../utils/renderComponent';
+import {prettyFunction, Types} from "../utils/componentTypes";
+import {getSourceCode} from "../utils/getSourceCode";
+import {HeightDecorator} from "../decorators/HeightDecorator";
+
+<Meta
+  title="RwMenu"
+  component={RwMenu}
+  subcomponents={{RwMenuItem}}
+  parameters={{
+    docs: { iframeHeight: 300 },
+  }}
+  argTypes={{
+    activatorSlot: {
+      control: 'text',
+      description: 'Slot to render menu button text or component',
+      table: {
+        type: {summary: `({
+          open: boolean,
+          close: () => void
+        }) => ${Types.Slot}`},
+        defaultValue: {summary: undefined},
+      },
+    },
+    itemsSlot: {
+      control: false,
+      description: 'Slot to render menu content',
+      table: {
+        type: {
+          summary: prettyFunction({
+            open: 'boolean',
+            close: '() => void'
+          }, Types.Slot)
+        },
+        defaultValue: {summary: undefined},
+      },
+    }
+  }}
+/>
+
+export const Template = renderComponent({
+  Component: RwMenu,
+  slots: [
+    'activatorSlot',
+    'itemsSlot',
+  ],
+  vModels: [],
+  subcomponents: { RwMenuItem, RwButton }
+});
+
+# RwMenu
+
+With `MDX`, we can define a story for `RwMenu` right in the middle of our
+Markdown documentation.
+
+<Canvas withSource='none'>
+  <Story
+    name="Default"
+    decorators={[HeightDecorator('200px')]}
+    args={{
+      activatorSlot: 'Example menu',
+      itemsSlot: `
+        <RwMenuItem><a href="#">Example link 1</a></RwMenuItem>
+        <RwMenuItem><a href="#">Example link 2</a></RwMenuItem>
+        <RwMenuItem><a href="#">Example link 3</a></RwMenuItem>
+      `
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+export const DEFAULT_CODE = await getSourceCode('RwMenu', 'DefaultCode')
+
+<Source
+  language='html'
+  dark
+  format={false}
+  code={DEFAULT_CODE}
+/>
+
+<ArgsTable story="Default"/>
+
+<Canvas withSource='none'>
+  <Story
+    name="RwButtonAsActivator"
+    decorators={[HeightDecorator('200px')]}
+    args={{
+      activatorSlot: `<RwButton>Test</RwButton>`,
+      itemsSlot: `<RwMenuItem><a href=#>Example link 1</a></RwMenuItem>
+        <RwMenuItem><a href=#>Example link 2</a></RwMenuItem>
+        <RwMenuItem><a href=#>Example link 3</a></RwMenuItem>`
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
