@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// import type { RwButtonEvents, RwButtonProps } from './types';
-
-// interface Props extends Omit<RwButtonProps, keyof RwButtonEvents> {}
 withDefaults(defineProps<{
   loading?: boolean;
   type?: 'button' | 'submit';

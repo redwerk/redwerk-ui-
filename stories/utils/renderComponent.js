@@ -14,8 +14,11 @@ export const renderVModel = (model) => {
 
 export const renderVModels = (vModels) => vModels.map((model) => renderVModel(model)).join(' ');
 
-export const renderComponent = ({ Component, slots = [], vModels = [] }) => (args) => ({
-  components: { Component },
+export const renderComponent = ({
+  Component, slots = [], vModels = [], subcomponents = {},
+}) => (args) => ({
+  components: { Component, ...subcomponents },
+  subcomponents,
   data() {
     const vModelData = {};
 
