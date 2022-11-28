@@ -39,5 +39,9 @@ onBeforeMount(() => {
   bottom: 20px;
   right: 20px;
   z-index: 1;
+  padding: 0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
 }
 </style>

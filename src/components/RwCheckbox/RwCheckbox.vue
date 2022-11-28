@@ -25,9 +25,17 @@ const selected = useVModel(props, 'modelValue', emit);
     >
       <RwCheckboxInput v-model="selected" />
 
-      <RwCheckboxLabel>
+      <RwCheckboxLabel class="rw-checkbox-label">
         <slot />
       </RwCheckboxLabel>
     </slot>
   </label>
 </template>
+
+<style lang="scss" scoped>
+.rw-checkbox {
+  .rw-checkbox-label {
+    margin-left: 8px;
+  }
+}
+</style>

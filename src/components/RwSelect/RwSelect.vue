@@ -201,13 +201,31 @@ const selectedOptionItem = computed(() => selectedOption.value?.item || null);
   &__button {
     display: flex;
     align-items: center;
+    border: 1px solid #cccccc;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
   }
 
   &__list {
     position: absolute;
+    display: inline-block;
+    max-width: 95vw;
+    box-shadow: 0 1px 5px #0003, 0 2px 2px #00000024, 0 3px 1px -2px #0000001f;
+    background: #ffffff;
+    border-radius: 4px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 65vh;
 
     &-item {
+      padding: 8px 16px;
+      transition: all .2s;
       cursor: pointer;
+
+      &:hover {
+        background: #cccccc;
+      }
     }
   }
 }
