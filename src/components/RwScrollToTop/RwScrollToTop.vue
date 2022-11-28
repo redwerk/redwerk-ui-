@@ -1,15 +1,30 @@
 <script setup lang="ts">
+import { onBeforeMount, ref } from 'vue';
 import RwButton from '../RwButton/RwButton.vue';
 import RwIcon from '../RwIcon/RwIcon.vue';
 
-function scrollToTop() {
-  window.scrollTo(0, 0);
+const showScrollToTop = ref(false);
+
+function onUserScroll() {
+  const screenHeight = window.innerHeight;
+  showScrollToTop.value = window.scrollY >= screenHeight;
 }
+
+function scrollToTop() {
+  if (window) {
+    window.scrollTo(0, 0);
+  }
+}
+
+onBeforeMount(() => {
+  window.document.addEventListener('scroll', onUserScroll);
+});
 </script>
 
 <template>
   <RwButton
     class="rw-scroll-to-top"
+    v-if="showScrollToTop"
     @click="scrollToTop()"
   >
     <slot>
