@@ -1,0 +1,76 @@
+import {Canvas, Meta, Story, ArgsTable, Source} from '@storybook/addon-docs';
+import RwCarousel from '../src/components/RwCarousel/RwCarousel.vue';
+import RwCarouselItem from '../src/components/RwCarousel/RwCarouselItem.vue';
+
+import {renderComponent} from './utils/renderComponent';
+import {Types} from "./utils/componentTypes";
+import {getSourceCode} from "./utils/getSourceCode";
+
+<Meta
+  title="RwCarousel"
+  component={RwCarousel}
+  argTypes={{
+    default: {
+      control: 'text',
+      description: 'Slot to render items in the carousel',
+      table: {
+        type: {summary: Types.String},
+        defaultValue: {summary: undefined},
+      },
+    },
+    prevButtonSlot: {
+      control: false,
+      description: 'Slot to render previous button',
+      table: {
+        type: {summary: Types.Slot},
+        defaultValue: {summary: undefined},
+      },
+    },
+    nextButtonSlot: {
+      control: false,
+      description: 'Slot to render previous button',
+      table: {
+        type: {summary: Types.Slot},
+        defaultValue: {summary: undefined},
+      },
+    },
+  }}
+/>
+
+export const Template = renderComponent({
+  Component: RwCarousel,
+  slots: ['default', 'prevButtonSlot', 'nextButtonSlot'],
+  subcomponents: { RwCarouselItem }
+});
+
+# RwCarousel
+
+With `MDX`, we can define a story for `RwCarousel` right in the middle of our
+Markdown documentation.
+
+<Canvas withSource='none'>
+  <Story
+    name="Default"
+    args={{
+      default: `
+    <RwCarouselItem v-for="n in 20" :key="n">
+        <div class="colored_card"> <p>{{ n }} </p>
+        </div>
+    </RwCarouselItem>
+`,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+export const DEFAULT_CODE = await getSourceCode('RwCarousel', 'DefaultCode')
+
+<Source
+  language='html'
+  dark
+  format={false}
+  code={DEFAULT_CODE}
+/>
+
+<ArgsTable story="Default"/>
