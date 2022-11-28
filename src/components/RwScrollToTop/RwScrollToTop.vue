@@ -24,7 +24,7 @@ onBeforeMount(() => {
 <template>
   <RwButton
     class="rw-scroll-to-top"
-    v-if="showScrollToTop"
+    v-show="showScrollToTop"
     @click="scrollToTop()"
   >
     <slot>
