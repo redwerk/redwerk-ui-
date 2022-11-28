@@ -7,6 +7,11 @@ export interface RwButtonEvents {
 export interface RwButtonProps extends RwButtonEvents {
   loading?: boolean;
   type?: 'button' | 'submit';
+  href?: string;
+  to?: string | Record<string, any>;
+  target?: '_self' | '_blank' | '_parent' | '_top',
+  rel?: string,
+  tag?: string,
 }
 
 export interface RwButtonSlots {

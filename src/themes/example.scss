@@ -1,7 +1,25 @@
-@import "../assets/normalize";
+@import "../assets/index";
 
 .example-theme {
   .rw-button {
-    background: green;
+    &.primary {
+      background: #1976d2;
+      color: #ffffff;
+    }
+
+    &.secondary {
+      background: #26A69A;
+      color: #ffffff;
+    }
+
+    &.secondary {
+      background: #26A69A;
+      color: #ffffff;
+    }
+
+    &.secondary {
+      background: #26A69A;
+      color: #ffffff;
+    }
   }
 }
