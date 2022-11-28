@@ -1,3 +1,4 @@
+import { RwScrollToTopProps, RwScrollToTopSlots } from './components/RwScrollToTop/types';
 import { GlobalComponentConstructor, ComponentConstructor } from './utils/ts-helper';
 import plugin from './index';
 
@@ -28,6 +29,7 @@ export declare const RwIcon: ComponentConstructor<RwIconComponent>;
 export declare const RwProgressBar: ComponentConstructor<RwProgressBarComponent>;
 export declare const RwRating: ComponentConstructor<RwRatingComponent>;
 export declare const RwSelect: ComponentConstructor<RwSelectComponent>;
+export declare const RwScrollToTop: ComponentConstructor<RwScrollToTopComponent>;
 
 declare module '@vue/runtime-core' {
   interface GlobalComponents {
@@ -39,6 +41,7 @@ declare module '@vue/runtime-core' {
     RwProgressBar: GlobalComponentConstructor<RwProgressBarProps, RwProgressBarSlots>,
     RwRating: GlobalComponentConstructor<RwRatingProps, RwRatingSlots>,
     RwSelect: GlobalComponentConstructor<RwSelectProps, RwSelectSlots>,
+    RwScrollToTop: GlobalComponentConstructor<RwScrollToTopProps, RwScrollToTopSlots>,
   }
 }
 

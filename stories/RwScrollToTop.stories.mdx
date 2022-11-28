@@ -1,0 +1,70 @@
+import { Canvas, Meta, Story, ArgsTable, Source } from '@storybook/addon-docs';
+import RwScrollToTop from '../src/components/RwScrollToTop/RwScrollToTop.vue';
+import { renderComponent } from './utils/renderComponent';
+import { Types } from "./utils/componentTypes";
+import {getSourceCode} from "./utils/getSourceCode";
+
+<Meta
+  title="RwScrollToTop"
+  component={RwScrollToTop}
+  argTypes= {{
+    default: {
+      control: false,
+      description: 'Slot to render icon',
+      table: {
+        type: { summary: Types.Slot },
+        defaultValue: { summary: undefined },
+      },
+    },
+    click: {
+      control: false,
+      description: 'Click event',
+      table: {
+        type: { summary: '() => void' },
+        defaultValue: { summary: undefined },
+      },
+    },
+    class: {
+      control: 'select',
+      description: 'Variants',
+      table: {
+        type: { summary: Types.String },
+        defaultValue: { summary: undefined },
+      },
+      options: [
+        '',
+        'primary',
+        'secondary',
+      ],
+    },
+  }}
+/>
+
+export const Template = renderComponent({ Component: RwScrollToTop, slots: ['default'] });
+
+# RwScrollToTop
+
+With `MDX`, we can define a story for `RwScrollToTop` right in the middle of our
+Markdown documentation.
+
+<Canvas withSource='none'>
+  <Story
+    name="Default"
+    args={{
+      class: 'secondary',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+export const DEFAULT_CODE = await getSourceCode('RwScrollToTop', 'DefaultCode')
+
+<Source
+  language='html'
+  dark
+  format={false}
+  code={DEFAULT_CODE}
+/>
+
+<ArgsTable story="Default" />
