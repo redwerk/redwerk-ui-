@@ -1,0 +1,58 @@
+import { Canvas, Meta, Story, ArgsTable, Source } from '@storybook/addon-docs';
+import RwSkeleton from '../src/components/RwSkeleton/RwSkeleton.vue';
+import { renderComponent } from './utils/renderComponent';
+import { Types } from "./utils/componentTypes";
+import {getSourceCode} from "./utils/getSourceCode";
+
+<Meta
+  title="RwSkeleton"
+  component={RwSkeleton}
+  argTypes= {{
+    class: {
+      control: 'text',
+      description: `Use classes:<br />
+        variants - circle, square, rectangle, bar<br />
+        animations - gradient, fade, wave
+      `,
+      table: {
+        type: { summary: Types.String },
+        defaultValue: { summary: undefined },
+      },
+      options: [
+        'circle',
+        'square',
+        'rectangle',
+        'bar',
+      ],
+    }
+  }}
+/>
+
+export const Template = renderComponent({ Component: RwSkeleton, slots: [] });
+
+# RwSkeleton
+
+With `MDX`, we can define a story for `RwSkeleton` right in the middle of our
+Markdown documentation.
+
+<Canvas withSource='none'>
+  <Story
+    name="Default"
+    args={{
+      class: 'rectangle gradient',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+export const DEFAULT_CODE = await getSourceCode('RwSkeleton', 'DefaultCode')
+
+<Source
+  language='html'
+  dark
+  format={false}
+  code={DEFAULT_CODE}
+/>
+
+<ArgsTable story="Default" />

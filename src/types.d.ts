@@ -31,6 +31,8 @@ import {
   RwMenuItemSlots,
 } from './components/RwMenu/types';
 
+import { RwSkeletonComponent, RwSkeletonProps } from './components/RwSkeleton/types';
+
 import {
   RwCarouselComponent,
   RwCarouselItemComponent,
@@ -57,6 +59,7 @@ export declare const RwScrollToTop: ComponentConstructor<RwScrollToTopComponent>
 export declare const RwCarousel: ComponentConstructor<RwCarouselComponent>;
 export declare const RwCarouselItem: ComponentConstructor<RwCarouselItemComponent>;
 export declare const RwExpansion: ComponentConstructor<RwExpansionComponent>;
+export declare const RwSkeleton: ComponentConstructor<RwSkeletonComponent>;
 export declare const RwMenu: ComponentConstructor<RwMenuComponent>;
 export declare const RwMenuItem: ComponentConstructor<RwMenuItemComponent>;
 
@@ -73,7 +76,8 @@ declare module '@vue/runtime-core' {
     RwScrollToTop: GlobalComponentConstructor<RwScrollToTopProps, RwScrollToTopSlots>,
     RwCarousel: GlobalComponentConstructor<RwCarouselProps, RwCarouselSlots>,
     RwCarouselItem: GlobalComponentConstructor<RwCarouselItemProps, RwCarouselItemSlots>,
-    RwExpansion: GlobalComponentConstructor<RwExpansionProps, RwExpansionSlots>,
+    RwExpansion: GlobalComponentConstructor<RwExpansionProps, RwExpansionSlots>
+    RwSkeleton: GlobalComponentConstructor<RwSkeletonProps>,
     RwMenu: GlobalComponentConstructor<RwMenuProps, RwMenuSlots>,
     RwMenuItem: GlobalComponentConstructor<RwMenuItemProps, RwMenuItemSlots>,
   }
