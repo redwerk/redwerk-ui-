@@ -14,6 +14,8 @@ export const RwRating = defineAsyncComponent(() => import('./components/RwRating
 
 export const RwSelect = defineAsyncComponent(() => import('./components/RwSelect/RwSelect.vue'));
 
+export const RwScrollToTop = defineAsyncComponent(() => import('./components/RwScrollToTop/RwScrollToTop.vue'));
+
 const components = [
   {
     name: 'RwButton',
@@ -54,6 +56,11 @@ const components = [
     name: 'RwSelect',
     kebabCase: 'rw-select',
     instance: RwSelect,
+  },
+  {
+    name: 'RwScrollToTop',
+    kebabCase: 'rw-scroll-to-top',
+    instance: RwScrollToTop,
   },
 ];
 
