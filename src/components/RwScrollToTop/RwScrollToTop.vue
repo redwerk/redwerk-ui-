@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeMount, ref, onUnmounted } from 'vue';
 import RwButton from '../RwButton/RwButton.vue';
-import RwIcon from '../RwIcon/RwIcon.vue';
+import { RwIcon } from '../../index';
 
 const showScrollToTop = ref(false);
 
