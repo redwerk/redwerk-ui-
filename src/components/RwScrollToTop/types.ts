@@ -1,12 +1,6 @@
 import type { VNode, ComponentPublicInstance } from 'vue';
 
-export interface RwScrollToTopEvents {
-  onClick?: () => void;
-}
-
-export interface RwScrollToTopProps extends RwScrollToTopEvents {
-
-}
+export interface RwScrollToTopProps {}
 
 export interface RwScrollToTopSlots {
   default: () => VNode[];

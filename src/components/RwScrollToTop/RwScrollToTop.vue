@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount, ref, onUnmounted } from 'vue';
 import RwButton from '../RwButton/RwButton.vue';
 import RwIcon from '../RwIcon/RwIcon.vue';
 
@@ -11,13 +11,17 @@ function onUserScroll() {
 }
 
 function scrollToTop() {
-  if (window) {
+  if (typeof window !== 'undefined') {
     window.scrollTo(0, 0);
   }
 }
 
 onBeforeMount(() => {
   window.document.addEventListener('scroll', onUserScroll);
+});
+
+onUnmounted(() => {
+  window.document.removeEventListener('scroll', onUserScroll);
 });
 </script>
 
