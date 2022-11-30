@@ -1,0 +1,36 @@
+import { Canvas, Meta, Story, ArgsTable, Source } from '@storybook/addon-docs';
+import { renderComponent } from './utils/renderComponent';
+import RwRangeSlider from "../src/components/RwRangeSlider/RwRangeSlider.vue";
+import {getSourceCode} from "./utils/getSourceCode";
+
+<Meta
+  title="RwRangeSlider"
+  component={RwRangeSlider}
+  argTypes={{}}
+/>
+
+export const Template = renderComponent({ Component: RwRangeSlider, slots: [] });
+
+# RwRangeSlider
+
+With `MDX`, we can define a story for `RwRangeSlider` right in the middle of our
+Markdown documentation.
+
+<Canvas withSource='none'>
+  <Story
+    name="Default"
+    args={{}}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+export const DEFAULT_CODE = await getSourceCode('RwRangeSlider', 'DefaultCode')
+
+<Source
+  language='html'
+  dark
+  format={false}
+  code={DEFAULT_CODE}
+/>
+
+<ArgsTable story="Default" />
