@@ -4,23 +4,36 @@ import {
 } from 'vue';
 
 import { useAutoplay } from './useAutoplay';
-import RwIcon from '../RwIcon/RwIcon.vue';
+import { RwIcon } from '../index';
 
 import { useScroll } from './useScroll';
 import { useLastSlideIntersection } from './useSlideIntersection';
-import type { RwCarouselAutoplayOptions } from './types';
-import { RwCarouselSlots } from './types';
+import type { RwCarouselAutoplayOptions, RwCarouselSlots } from './types';
+import { useMouseEvents } from './useMouseEvents';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   vertical?: boolean,
   infinite?: boolean,
   showScroll?: boolean,
   autoplay?: boolean | RwCarouselAutoplayOptions,
-}>();
+  maxVisible?: number,
+  notVisibleOffset?: string,
+  showDots?: boolean,
+  showButtons?: boolean,
+  scrollByDrag?: boolean,
+}>(), {
+  vertical: false,
+  infinite: false,
+  showScroll: false,
+  autoplay: false,
+  maxVisible: undefined,
+  notVisibleOffset: undefined,
+  showDots: true,
+  showButtons: true,
+  scrollByDrag: true,
+});
 
 const scrollerElementRef = ref<HTMLDivElement>();
-
-const isScrollEnd = ref(false);
 
 const itemElementWidth = computed(() => {
   if (typeof window === 'undefined' || !scrollerElementRef.value) {
@@ -34,55 +47,9 @@ const itemElementWidth = computed(() => {
   return width || 0;
 });
 
-function next() {
-  if (props.vertical) {
-    scrollerElementRef.value?.scrollBy(0, itemElementWidth.value);
-  } else {
-    scrollerElementRef.value?.scrollBy(itemElementWidth.value, 0);
-  }
-}
-
-function previous() {
-  if (props.vertical) {
-    scrollerElementRef.value?.scrollBy(0, -itemElementWidth.value);
-  } else {
-    scrollerElementRef.value?.scrollBy(-itemElementWidth.value, 0);
-  }
-}
-
-const carouselScroll = useScroll({
-  props,
-  isScrollEnd,
-  itemElementWidth,
-  scrollerElementRef,
-});
-
-const lastSlide = useLastSlideIntersection({ props, scrollerElementRef });
-
-const autoplay = useAutoplay({
-  props,
-  nextSlideFn: next,
-  prevSlideFn: previous,
-});
-
-const scrollerStyle = computed(() => {
-  if (props.vertical) {
-    return {
-      width: '100%',
-      maxHeight: `${itemElementWidth.value}px`,
-    };
-  }
-
-  return {
-    // maxWidth: `${itemElementWidth.value}px`,
-  };
-});
-
 const slots = useSlots() as unknown as RwCarouselSlots;
 
 const slidesKeys = computed(() => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const nodes = slots?.default() || [];
 
   if (!nodes.length) {
@@ -94,10 +61,71 @@ const slidesKeys = computed(() => {
   return nodeWithSlides.map((child) => `slide-${child.key}`);
 });
 
+const carouselScroll = useScroll({
+  props,
+  itemElementWidth,
+  scrollerElementRef,
+});
+
+const lastSlide = useLastSlideIntersection({ props, scrollerElementRef });
+
+function next() {
+  const offset = carouselScroll.visibleSlidesKeys.value.length === 1
+    ? itemElementWidth.value + (itemElementWidth.value / 3)
+    : itemElementWidth.value;
+
+  if (props.vertical) {
+    scrollerElementRef.value?.scrollBy(0, offset);
+  } else {
+    scrollerElementRef.value?.scrollBy(offset, 0);
+  }
+}
+
+function previous() {
+  const offset = carouselScroll.visibleSlidesKeys.value.length === 1
+    ? itemElementWidth.value + (itemElementWidth.value / 3)
+    : itemElementWidth.value;
+
+  if (props.vertical) {
+    scrollerElementRef.value?.scrollBy(0, -offset);
+  } else {
+    scrollerElementRef.value?.scrollBy(-offset, 0);
+  }
+}
+
+const autoplay = useAutoplay({
+  props,
+  nextSlideFn: next,
+  prevSlideFn: previous,
+});
+
+const mouseEvents = useMouseEvents({ props, scrollerElementRef });
+
+const scrollerStyle = computed(() => {
+  const offset = props.notVisibleOffset || '0px';
+  const gridStyle = props.maxVisible ? `calc((100% / ${props.maxVisible}) - ${offset})` : 'auto';
+  const cursor = props.scrollByDrag ? 'grab' : 'auto';
+
+  if (props.vertical) {
+    return {
+      width: '100%',
+      gridAutoRows: gridStyle,
+      cursor,
+    };
+  }
+
+  return {
+    gridAutoColumns: gridStyle,
+    cursor,
+  };
+});
+
 onMounted(() => {
   autoplay.startAutoplay();
 
   scrollerElementRef.value?.addEventListener('scroll', carouselScroll.onScrollEvent);
+
+  carouselScroll.detectFirstVisibleSlide();
 
   lastSlide.startIntersection();
 });
@@ -114,76 +142,100 @@ defineExpose({ next, previous });
 </script>
 
 <template>
-  <div class="rw-carousel">
-    <div
-      :class="[
-        'rw-carousel__scroller',
-        {
-          vertical,
-          'hide-scrollbar': !showScroll,
-        },
-      ]"
-      :style="scrollerStyle"
-      ref="scrollerElementRef"
-    >
-      <slot />
-
+  <div
+    :class="[
+      'rw-carousel',
+      {
+        vertical,
+        'hide-scrollbar': !showScroll,
+      },
+    ]"
+  >
+    <div class="rw-carousel__container">
       <div
-        v-if="!vertical && infinite"
-        class="rw-carousel-item"
-        :ref="lastSlide.registerRef"
-        :style="{ width: `${itemElementWidth}px` }"
-      />
-    </div>
-
-    <div class="rw-carousel__btn prev">
-      <slot
-        name="prevButtonSlot"
-        :click="previous"
+        class="scroller"
+        :style="scrollerStyle"
+        ref="scrollerElementRef"
+        @mousemove="mouseEvents.onMouseMove"
+        @mouseup="mouseEvents.onMouseUp"
+        @mousedown="mouseEvents.onMouseDown"
+        @mouseout="mouseEvents.onMouseUp"
       >
-        <button
-          type="button"
-          @click="previous"
-        >
-          <RwIcon name="mdi:chevron-left" />
-        </button>
-      </slot>
-    </div>
+        <slot />
 
-    <div class="rw-carousel__btn next">
-      <slot
-        name="nextButtonSlot"
-        :click="next"
-      >
-        <button
-          type="button"
-          @click="next"
-        >
-          <RwIcon name="mdi:chevron-right" />
-        </button>
-      </slot>
+        <div
+          v-if=" infinite && carouselScroll.visibleSlidesKeys.value.length > 1"
+          class="rw-carousel-item"
+          :ref="lastSlide.registerRef"
+        />
+      </div>
+
+      <template v-if="showButtons">
+        <div class="btn prev">
+          <slot
+            name="prevButtonSlot"
+            :click="previous"
+          >
+            <button
+              type="button"
+              title="Previous slide"
+              @click="previous"
+            >
+              <RwIcon name="mdi:chevron-left" />
+            </button>
+          </slot>
+        </div>
+
+        <div class="btn next">
+          <slot
+            name="nextButtonSlot"
+            :click="next"
+          >
+            <button
+              type="button"
+              title="Next slide"
+              @click="next"
+            >
+              <RwIcon name="mdi:chevron-right" />
+            </button>
+          </slot>
+        </div>
+      </template>
     </div>
 
     <div class="rw-carousel__bottom">
       <slot
-        name="bottom"
+        name="bottomSlot"
         :previous="previous"
         :next="next"
         :scroll-to="carouselScroll.scrollToSlideByKey"
         :slides-keys="slidesKeys"
+        :active-slide-key="carouselScroll.firstVisibleSlideKey.value"
       >
-        <div class="dots">
+        <div
+          v-if="showDots"
+          class="dots"
+        >
           <template
             v-for="(key, index) in slidesKeys"
             :key="key"
           >
             <slot
-              name="dot"
+              name="dotSlot"
               :slide-number="index + 1"
+              :slide-key="key"
+              :click="() => carouselScroll.scrollToSlideByKey(key)"
+              :active="key === carouselScroll.firstVisibleSlideKey.value"
             >
               <button
-                class="dot"
+                :class="[
+                  'dots__item',
+                  {
+                    active: key === carouselScroll.firstVisibleSlideKey.value,
+                  },
+                ]"
                 type="button"
+                :title="`Slide #${index + 1}`"
                 @click="carouselScroll.scrollToSlideByKey(key)"
               />
             </slot>
@@ -196,92 +248,106 @@ defineExpose({ next, previous });
 
 <style lang="scss">
 .rw-carousel {
-  position: relative;
-  padding: 0 10px;
+  &__container {
+    position: relative;
 
-  &__scroller {
-    /* snap mandatory on horizontal axis  */
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
+    .scroller {
+      /* snap mandatory on horizontal axis  */
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scroll-padding: 100px;
 
-    overflow-x: auto;
-    overflow-y: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
 
-    display: flex;
-    align-items: center;
+      display: grid;
+      grid-auto-flow: column;
 
-    /* Enable Safari touch scrolling physics */
-    -webkit-overflow-scrolling: touch;
+      /* Enable Safari touch scrolling physics */
+      -webkit-overflow-scrolling: touch;
 
-    padding-bottom: 10px;
+      padding-bottom: 10px;
 
-    .rw-carousel-item {
-      /* snap align center  */
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
-      position: relative;
+      .rw-carousel-item {
+        /* snap align center  */
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+        position: relative;
 
-      &:last-of-type {
-        padding-right: 20px;
+        &:first-of-type {
+          scroll-snap-align: start;
+        }
+
+        &:last-of-type {
+          scroll-snap-align: end;
+        }
       }
     }
 
-    &.vertical {
-      scroll-snap-type: y mandatory;
+    .btn {
+      position: absolute;
 
-      overflow-x: hidden;
-      overflow-y: auto;
-      flex-direction: column;
-    }
+      top: 50%;
+      transform: translateY(-50%);
 
-    &.hide-scrollbar {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
+      border-radius: 2px;
+      background-color: rgba(0,0,0,0.5);
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
 
-      &::-webkit-scrollbar {
-        display: none;
+      z-index: 1;
+
+      &.prev {
+        left: 10px;
+      }
+
+      &.next {
+        right: 10px;
       }
     }
   }
 
-  &__btn {
-    position: absolute;
-
-    top: 50%;
-    transform: translateY(-50%);
-
-    height: 30px;
-    width: 30px;
-
-    border-radius: 2px;
-    background-color: rgba(0,0,0,0.5);
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-
-    z-index: 1;
-
-    &.prev {
-      left: 10px;
-    }
-
-    &.next {
-      right: 10px;
-    }
-  }
-
-  &_bottom {
+  &__bottom {
     margin-top: 10px;
 
     .dots {
       display: flex;
       justify-content: center;
       align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
 
-      .dot {
-        width: 10px;
-        height: 10px;
+      &__item {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        border: none;
         border-radius: 50%;
-        background-color: rgba(0,0,0,0.5);
+        background: lightgray;
+
+        &.active {
+          background: lightgreen;
+        }
+      }
+    }
+  }
+
+  &.vertical {
+    .scroller {
+      scroll-snap-type: y mandatory;
+      overflow-x: hidden;
+      overflow-y: auto;
+      grid-auto-flow: row;
+    }
+  }
+
+  &.hide-scrollbar {
+    .scroller {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+
+      &::-webkit-scrollbar {
+        display: none;
       }
     }
   }

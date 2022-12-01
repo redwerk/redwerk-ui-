@@ -46,6 +46,7 @@ export function useLastSlideIntersection({ scrollerElementRef, props }: Data) {
     if (copiedFirstRefIntersection.value) {
       copiedFirstRefIntersection.value.stop();
     }
+    copiedFirstRefIntersection.value = undefined;
   }
 
   return {

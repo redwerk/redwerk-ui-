@@ -51,6 +51,7 @@ onBeforeUnmount(() => {
     class="rw-carousel-item"
     ref="slideRef"
     :data-slide="slideKey"
+    :data-visible="isVisible"
   >
     <slot :visible="isVisible" />
   </div>

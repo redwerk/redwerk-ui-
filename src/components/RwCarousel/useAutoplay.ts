@@ -14,6 +14,8 @@ interface Params {
   prevSlideFn: () => void,
 }
 export function useAutoplay(params: Params) {
+  // TODO: implement autoplay
+
   const changeInterval = ref<SetInterval>();
 
   const currentIntervalTime = ref(0);
