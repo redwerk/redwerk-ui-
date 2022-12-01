@@ -17,5 +17,7 @@ export const RwSelect = defineAsyncComponent(() => import('./RwSelect/RwSelect.v
 export const RwMenu = defineAsyncComponent(() => import('./RwMenu/RwMenu.vue'));
 export const RwMenuItem = defineAsyncComponent(() => import('./RwMenu/RwMenuItem.vue'));
 
+export const RwScrollToTop = defineAsyncComponent(() => import('./RwScrollToTop/RwScrollToTop.vue'));
+
 export const RwCarousel = defineAsyncComponent(() => import('./RwCarousel/RwCarousel.vue'));
 export const RwCarouselItem = defineAsyncComponent(() => import('./RwCarousel/RwCarouselItem.vue'));

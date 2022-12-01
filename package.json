@@ -23,6 +23,7 @@
     "dev": "vite",
     "build": "vite build && vue-tsc --emitDeclarationOnly --declaration",
     "preview": "vite preview",
+    "build-package:local": "npm run build && npm pack",
     "test:unit": "vitest --environment jsdom --root src/",
     "build-only": "vite build",
     "analyze": "vite build --config analyze.config.js",
