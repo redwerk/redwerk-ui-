@@ -56,7 +56,7 @@ const style = computed(() => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .rw-progress-bar {
   position: relative;
   border: 1px solid #aaa;

@@ -21,6 +21,8 @@ import { RwRatingComponent, RwRatingProps, RwRatingSlots } from './components/Rw
 
 import { RwSelectComponent, RwSelectProps, RwSelectSlots } from './components/RwSelect/types';
 
+import { RwRangeSliderComponent, RwRangeSliderProps, RwRangeSliderSlots } from './components/RwRangeSlider/types';
+
 export declare const RwButton: ComponentConstructor<RwButtonComponent>;
 export declare const RwCheckbox: ComponentConstructor<RwCheckboxComponent>;
 export declare const RwCheckboxInput: ComponentConstructor<RwCheckboxInputComponent>;
@@ -30,6 +32,7 @@ export declare const RwProgressBar: ComponentConstructor<RwProgressBarComponent>
 export declare const RwRating: ComponentConstructor<RwRatingComponent>;
 export declare const RwSelect: ComponentConstructor<RwSelectComponent>;
 export declare const RwScrollToTop: ComponentConstructor<RwScrollToTopComponent>;
+export declare const RwRangeSlider: ComponentConstructor<RwRangeSliderComponent>;
 
 declare module '@vue/runtime-core' {
   interface GlobalComponents {
@@ -42,6 +45,7 @@ declare module '@vue/runtime-core' {
     RwRating: GlobalComponentConstructor<RwRatingProps, RwRatingSlots>,
     RwSelect: GlobalComponentConstructor<RwSelectProps, RwSelectSlots>,
     RwScrollToTop: GlobalComponentConstructor<RwScrollToTopProps, RwScrollToTopSlots>,
+    RwRangeSlider: GlobalComponentConstructor<RwRangeSliderProps, RwRangeSliderSlots>,
   }
 }
 

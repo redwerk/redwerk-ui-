@@ -59,7 +59,7 @@ const component = computed(() => {
   </component>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .rw-button {
   outline: none;
   text-align: center;
