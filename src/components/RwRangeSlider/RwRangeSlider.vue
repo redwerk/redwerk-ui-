@@ -38,7 +38,7 @@ const props = withDefaults(defineProps<Props>(), {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .rw-range-slider {
   .slider {
     position: relative;
