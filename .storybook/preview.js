@@ -1,5 +1,6 @@
 import '../src/themes/example.scss';
 import '../src/themes/blue.scss';
+import '../stories/assets/styles/index.scss'
 import {THEMES, WithThemeProvider} from "../stories/decorators/WithThemeProvider";
 
 export const parameters = {
