@@ -67,6 +67,8 @@ const carouselScroll = useScroll({
   scrollerElementRef,
 });
 
+const activeItemIndex = computed(() => slidesKeys.value.findIndex((key) => carouselScroll.firstVisibleSlideKey.value === key));
+
 const lastSlide = useLastSlideIntersection({ props, scrollerElementRef });
 
 function next() {
@@ -161,7 +163,7 @@ defineExpose({ next, previous });
         @mousedown="mouseEvents.onMouseDown"
         @mouseout="mouseEvents.onMouseUp"
       >
-        <slot />
+        <slot :active-item-index="activeItemIndex" />
 
         <div
           v-if=" infinite && carouselScroll.visibleSlidesKeys.value.length > 1"

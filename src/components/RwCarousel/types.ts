@@ -20,7 +20,9 @@ export interface RwCarouselProps extends RwCarouselEvents {
 }
 
 export interface RwCarouselSlots {
-  default: () => VNode[];
+  default: (data: {
+    activeItemIndex: number,
+  }) => VNode[];
 
   prevButtonSlot: (data: {
     click: () => void
