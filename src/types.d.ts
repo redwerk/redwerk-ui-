@@ -30,6 +30,12 @@ import {
   RwCarouselItemProps, RwCarouselItemSlots,
 } from './components/RwCarousel/types';
 
+import {
+  RwExpansionProps,
+  RwExpansionSlots,
+  RwExpansionComponent,
+} from './components/RwExpansion/types';
+
 export declare const RwButton: ComponentConstructor<RwButtonComponent>;
 export declare const RwCheckbox: ComponentConstructor<RwCheckboxComponent>;
 export declare const RwCheckboxInput: ComponentConstructor<RwCheckboxInputComponent>;
@@ -41,6 +47,7 @@ export declare const RwSelect: ComponentConstructor<RwSelectComponent>;
 export declare const RwScrollToTop: ComponentConstructor<RwScrollToTopComponent>;
 export declare const RwCarousel: ComponentConstructor<RwCarouselComponent>;
 export declare const RwCarouselItem: ComponentConstructor<RwCarouselItemComponent>;
+export declare const RwExpansion: ComponentConstructor<RwExpansionComponent>;
 
 declare module '@vue/runtime-core' {
   interface GlobalComponents {
@@ -55,6 +62,7 @@ declare module '@vue/runtime-core' {
     RwScrollToTop: GlobalComponentConstructor<RwScrollToTopProps, RwScrollToTopSlots>,
     RwCarousel: GlobalComponentConstructor<RwCarouselProps, RwCarouselSlots>,
     RwCarouselItem: GlobalComponentConstructor<RwCarouselItemProps, RwCarouselItemSlots>,
+    RwExpansion: GlobalComponentConstructor<RwExpansionProps, RwExpansionSlots>
   }
 }
 
