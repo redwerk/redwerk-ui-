@@ -1,0 +1,58 @@
+import {Canvas, Meta, Story, ArgsTable, Source} from '@storybook/addon-docs';
+import RwExpansion from '../src/components/RwExpansion/RwExpansion.vue';
+import {renderComponent} from './utils/renderComponent';
+import {Types} from "./utils/componentTypes";
+import {getSourceCode} from "./utils/getSourceCode";
+
+<Meta
+  title="RwExpansion"
+  component={RwExpansion}
+  argTypes={{
+    activatorSlot: {
+      control: 'text',
+      description: 'Slot to render activator',
+      table: {
+        type: {summary: Types.Slot},
+        defaultValue: {summary: undefined},
+      },
+    },
+    contentSlot: {
+      control: 'text',
+      description: 'Slot to render content',
+      table: {
+        type: {summary: Types.Slot},
+        defaultValue: {summary: undefined},
+      },
+    },
+  }}
+/>
+
+export const Template = renderComponent({ Component: RwExpansion, slots: ['activatorSlot', 'contentSlot'] });
+
+# RwExpansion
+
+With `MDX`, we can define a story for `RwExpansion` right in the middle of our
+Markdown documentation.
+
+<Canvas withSource='none'>
+  <Story
+    name="Default"
+    args={{
+      activatorSlot: 'title',
+      contentSlot: 'description',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+export const DEFAULT_CODE = await getSourceCode('RwExpansion', 'DefaultCode')
+
+<Source
+  language='html'
+  dark
+  format={false}
+  code={DEFAULT_CODE}
+/>
+
+<ArgsTable story="Default"/>
