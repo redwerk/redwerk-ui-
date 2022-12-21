@@ -35,6 +35,6 @@ const props = withDefaults(defineProps<{
 
 <style lang="scss">
 .rw-expansion {
-
+//TODO: add default styles
 }
 </style>
