@@ -21,3 +21,4 @@ export const RwScrollToTop = defineAsyncComponent(() => import('./RwScrollToTop/
 
 export const RwCarousel = defineAsyncComponent(() => import('./RwCarousel/RwCarousel.vue'));
 export const RwCarouselItem = defineAsyncComponent(() => import('./RwCarousel/RwCarouselItem.vue'));
+export const RwExpansion = defineAsyncComponent(() => import('./RwExpansion/RwExpansion.vue'));
