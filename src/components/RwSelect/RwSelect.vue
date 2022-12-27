@@ -171,12 +171,12 @@ const selectedOptionItem = computed(() => selectedOption.value?.item || null);
           {
             'rw-select__list-item__focused': active,
             'rw-select__list-item__selected': selected,
-            'rw-select__list-item__disabled': disabled,
+            'rw-select__list-item__disabled': disabled || option.isDisabled,
           },
         ]"
         :key="index"
         :value="option.value"
-        :disabled="option.isDisabled"
+        :disabled="disabled || option.isDisabled"
       >
         <slot
           name="itemSlot"
@@ -184,7 +184,7 @@ const selectedOptionItem = computed(() => selectedOption.value?.item || null);
             item: option.item,
             active,
             selected,
-            disabled,
+            disabled: disabled || option.isDisabled,
           }"
         >
           {{ option.title }}

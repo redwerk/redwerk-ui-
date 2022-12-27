@@ -1,5 +1,5 @@
 export const renderSlot = (slot, args) => {
-  const vSlot = slot === 'default' ? 'v-slot' : `v-slot:${slot}`;
+  const vSlot = slot === 'default' ? 'v-slot="scope"' : `v-slot:${slot}="scope"`;
 
   return `<template v-if="${slot in args}" ${vSlot}>${args[slot]}</template>`;
 };

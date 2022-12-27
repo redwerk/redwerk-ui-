@@ -3,6 +3,7 @@ import {
   computed, onBeforeUnmount, onMounted, ref, useSlots,
 } from 'vue';
 
+import RwCarouselItemMock from './RwCarouselItemMock.vue';
 import { useAutoplay } from './useAutoplay';
 import { RwIcon } from '../index';
 
@@ -21,6 +22,7 @@ const props = withDefaults(defineProps<{
   showDots?: boolean,
   showButtons?: boolean,
   scrollByDrag?: boolean,
+  showMockSlides?: boolean,
 }>(), {
   vertical: false,
   infinite: false,
@@ -31,6 +33,7 @@ const props = withDefaults(defineProps<{
   showDots: true,
   showButtons: true,
   scrollByDrag: true,
+  showMockSlides: false,
 });
 
 const scrollerElementRef = ref<HTMLDivElement>();
@@ -50,7 +53,7 @@ const itemElementWidth = computed(() => {
 const slots = useSlots() as unknown as RwCarouselSlots;
 
 const slidesKeys = computed(() => {
-  const nodes = slots?.default() || [];
+  const nodes = slots?.default({ activeItemIndex: 0 }) || [];
 
   if (!nodes.length) {
     return [];
@@ -61,10 +64,23 @@ const slidesKeys = computed(() => {
   return nodeWithSlides.map((child) => `slide-${child.key}`);
 });
 
+const slideStyles = computed(() => {
+  if (props.vertical) {
+    return {
+      height: `${itemElementWidth.value}px`,
+    };
+  }
+
+  return {
+    width: `${itemElementWidth.value}px`,
+  };
+});
+
 const carouselScroll = useScroll({
   props,
   itemElementWidth,
   scrollerElementRef,
+  slidesKeys,
 });
 
 const activeItemIndex = computed(() => slidesKeys.value.findIndex((key) => carouselScroll.firstVisibleSlideKey.value === key));
@@ -163,13 +179,29 @@ defineExpose({ next, previous });
         @mousedown="mouseEvents.onMouseDown"
         @mouseout="mouseEvents.onMouseUp"
       >
+        <template v-if="showMockSlides">
+          <RwCarouselItemMock
+            v-for="(_, index) in carouselScroll.mockSlides.value"
+            :key="index"
+            :style="slideStyles"
+          />
+        </template>
+
         <slot :active-item-index="activeItemIndex" />
 
         <div
-          v-if=" infinite && carouselScroll.visibleSlidesKeys.value.length > 1"
+          v-if="infinite && carouselScroll.visibleSlidesKeys.value.length > 1"
           class="rw-carousel-item"
           :ref="lastSlide.registerRef"
         />
+
+        <template v-if="showMockSlides">
+          <RwCarouselItemMock
+            v-for="(_, index) in carouselScroll.mockSlides.value"
+            :key="index"
+            :style="slideStyles"
+          />
+        </template>
       </div>
 
       <template v-if="showButtons">

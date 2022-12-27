@@ -10,7 +10,8 @@ const emit = defineEmits<{
 
 const slideRef = ref<HTMLDivElement>();
 
-const slideKey = computed(() => `slide-${String(getCurrentInstance()?.vnode.key)}`);
+const componentKey = computed(() => getCurrentInstance()?.vnode.key as string || '');
+const slideKey = computed(() => `slide-mock-${componentKey.value}`);
 
 const intersection = ref();
 
@@ -28,7 +29,7 @@ function startIntersection() {
       emit('visibilityChange', isIntersecting);
     },
     {
-      // rootMargin: '0px',
+      rootMargin: '0px',
       // threshold: 1.0,
     },
   );
@@ -52,7 +53,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div
-    class="rw-carousel-item"
+    class="rw-carousel-item-mock"
     ref="slideRef"
     :data-slide="slideKey"
   >

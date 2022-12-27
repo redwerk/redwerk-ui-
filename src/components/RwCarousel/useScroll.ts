@@ -8,6 +8,7 @@ interface Data {
   scrollerElementRef: Ref<HTMLDivElement | undefined>,
   props: RwCarouselProps,
   itemElementWidth: ComputedRef<number>,
+  slidesKeys: Ref<string[]>,
 }
 
 interface ScrollToData {
@@ -17,7 +18,7 @@ interface ScrollToData {
 }
 
 export function useScroll({
-  scrollerElementRef, props, itemElementWidth,
+  scrollerElementRef, props, itemElementWidth, slidesKeys,
 }: Data) {
   // TODO: fix infinite scrolling
   const firstVisibleSlideKey = ref('');
@@ -25,6 +26,9 @@ export function useScroll({
   const isScrollEnd = ref(false);
   const prevScrollPosition = ref(0);
   const isProgramScroll = ref(false);
+
+  const mockSlides = ref(new Array(slidesKeys.value.length));
+  const visibleMockSlidesKeys = ref<string[]>([]);
 
   function setOverflow(value: string) {
     if (!scrollerElementRef.value) {
@@ -54,7 +58,17 @@ export function useScroll({
     }, 1000);
   }
 
-  const detectFirstVisibleSlide = useDebounceFn(() => {
+  function detectVisibleMockSlides() {
+    if (!scrollerElementRef.value) {
+      return;
+    }
+
+    const slideElements = [...scrollerElementRef.value.querySelectorAll<HTMLElement>('.rw-carousel-item-mock[data-visible="true"]')];
+
+    visibleMockSlidesKeys.value = slideElements.map((slideElement) => slideElement.dataset.slide as string);
+  }
+
+  function detectVisibleSlides() {
     if (!scrollerElementRef.value) {
       return;
     }
@@ -63,12 +77,38 @@ export function useScroll({
 
     visibleSlidesKeys.value = slideElements.map((slideElement) => slideElement.dataset.slide as string);
 
-    const middleIndex = Math.floor(slideElements.length / 2);
+    mockSlides.value = new Array(Math.ceil(visibleSlidesKeys.value.length / 2));
+  }
 
-    const slideKey = slideElements.length && slideElements[middleIndex].dataset.slide;
+  const detectFirstVisibleSlide = useDebounceFn(() => {
+    if (!scrollerElementRef.value) {
+      return;
+    }
+
+    detectVisibleSlides();
+    detectVisibleMockSlides();
+
+    const middleIndex = Math.floor((visibleSlidesKeys.value.length - 1) / 2);
+
+    const isFirstSlideVisible = visibleSlidesKeys.value.length && slidesKeys.value[0] === visibleSlidesKeys.value[0];
+    const isLastSlideVisible = visibleSlidesKeys.value.length && slidesKeys.value[slidesKeys.value.length - 1] === visibleSlidesKeys.value[visibleSlidesKeys.value.length - 1];
+
+    const mockSlidesVisible = mockSlides.value.length === visibleMockSlidesKeys.value.length;
+
+    let slideKey = '';
+
+    if (isFirstSlideVisible && mockSlidesVisible) {
+      slideKey = slidesKeys.value[0];
+    } else if (isLastSlideVisible && mockSlidesVisible) {
+      slideKey = slidesKeys.value[slidesKeys.value.length - 1];
+    } else {
+      slideKey = visibleSlidesKeys.value[middleIndex] || '';
+    }
 
     firstVisibleSlideKey.value = slideKey || '';
-  }, 100);
+
+    // firstVisibleSlideKey.value = visibleSlidesKeys.value[middleIndex] || '';
+  }, 200);
 
   function scrollTo(top: number, left: number) {
     if (!scrollerElementRef.value) {
@@ -145,6 +185,6 @@ export function useScroll({
   }
 
   return {
-    onScrollEvent, scrollToSlideByKey, firstVisibleSlideKey, visibleSlidesKeys, detectFirstVisibleSlide,
+    onScrollEvent, scrollToSlideByKey, firstVisibleSlideKey, visibleSlidesKeys, detectFirstVisibleSlide, mockSlides, visibleMockSlidesKeys,
   };
 }
