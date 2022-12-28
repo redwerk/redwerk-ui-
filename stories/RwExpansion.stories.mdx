@@ -3,6 +3,7 @@ import RwExpansion from '../src/components/RwExpansion/RwExpansion.vue';
 import {renderComponent} from './utils/renderComponent';
 import {Types} from "./utils/componentTypes";
 import {getSourceCode} from "./utils/getSourceCode";
+import RwIcon from "../src/components/RwIcon/RwIcon.vue";
 
 <Meta
   title="RwExpansion"
@@ -27,7 +28,11 @@ import {getSourceCode} from "./utils/getSourceCode";
   }}
 />
 
-export const Template = renderComponent({ Component: RwExpansion, slots: ['activatorSlot', 'contentSlot'] });
+export const Template = renderComponent({
+  Component: RwExpansion,
+  slots: ['activatorSlot', 'contentSlot'],
+  subcomponents: { RwIcon }
+});
 
 # RwExpansion
 
@@ -38,8 +43,11 @@ Markdown documentation.
   <Story
     name="Default"
     args={{
-      activatorSlot: 'title',
+      activatorSlot: `
+        <h3>title</h3>
+        <RwIcon :name="open ? 'ic:baseline-minus' : 'ic:baseline-plus'" />`,
       contentSlot: 'description',
+      class: 'primary',
     }}
   >
     {Template.bind({})}

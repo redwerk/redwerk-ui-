@@ -11,15 +11,45 @@
       background: #26A69A;
       color: #ffffff;
     }
+  }
 
-    &.secondary {
-      background: #26A69A;
-      color: #ffffff;
+  .rw-menu {
+    &.primary {
+      .rw-menu-items {
+        .rw-menu-item {
+          &:hover {
+            background: #1976d2;
+            color: #ffffff;
+          }
+        }
+      }
     }
 
     &.secondary {
-      background: #26A69A;
-      color: #ffffff;
+      .rw-menu-items {
+        .rw-menu-item {
+          &:hover {
+            background: #26A69A;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+
+  .rw-expansion {
+    &.primary {
+      .activator {
+        background: #1976d2;
+        color: #ffffff;
+      }
+    }
+
+    &.secondary {
+      .activator {
+        background: #26A69A;
+        color: #ffffff;
+      }
     }
   }
 }
