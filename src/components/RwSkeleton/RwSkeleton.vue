@@ -9,6 +9,7 @@
 .rw-skeleton {
   border-radius: 4px;
   background-color: #D3D3D3;
+  margin: 3px;
 
   &.gradient {
     background: linear-gradient(-45deg, #F0F0F0, #D3D3D3);
