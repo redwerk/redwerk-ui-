@@ -35,6 +35,23 @@ const props = withDefaults(defineProps<{
 
 <style lang="scss">
 .rw-expansion {
-//TODO: add default styles
+  width: 100%;
+
+  .activator {
+    font-size: 14px;
+    padding: 10px 16px;
+    cursor: pointer;
+    width: inherit;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3px;
+    border: none;
+  }
+
+  .content {
+    padding: 10px 16px;
+  }
 }
 </style>
