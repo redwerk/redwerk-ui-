@@ -17,6 +17,7 @@ export interface RwCarouselProps extends RwCarouselEvents {
   showDots?: boolean,
   showButtons?: boolean,
   scrollByDrag?: boolean,
+  showMockSlides?: boolean,
 }
 
 export interface RwCarouselSlots {

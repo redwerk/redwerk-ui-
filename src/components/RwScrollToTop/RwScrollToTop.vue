@@ -37,7 +37,7 @@ onUnmounted(() => {
   </RwButton>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .rw-scroll-to-top {
   position: fixed;
   bottom: 20px;

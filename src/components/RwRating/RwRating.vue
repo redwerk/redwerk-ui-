@@ -99,7 +99,7 @@ function setValue(item: number) {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .rw-rating {
   &__item {
     cursor: pointer;

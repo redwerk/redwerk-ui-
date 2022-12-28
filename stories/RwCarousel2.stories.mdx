@@ -1,16 +1,12 @@
 import {Canvas, Meta, Story, ArgsTable, Source} from '@storybook/addon-docs';
-import RwCarousel from '../src/components/RwCarousel/RwCarousel.vue';
-import RwCarouselItem from '../src/components/RwCarousel/RwCarouselItem.vue';
-import RwCarouselItemMock from '../src/components/RwCarousel/RwCarouselItemMock.vue';
-
-
+import RwCarousel2 from '../src/components/RwCarousel/RwCarousel2.vue';
 import {renderComponent} from './utils/renderComponent';
 import {Types} from "./utils/componentTypes";
 import {getSourceCode} from "./utils/getSourceCode";
 
 <Meta
-  title="RwCarousel"
-  component={RwCarousel}
+  title="RwCarousel2"
+  component={RwCarousel2}
   argTypes={{
     default: {
       control: 'text',
@@ -40,9 +36,8 @@ import {getSourceCode} from "./utils/getSourceCode";
 />
 
 export const Template = renderComponent({
-  Component: RwCarousel,
-  slots: ['default', 'prevButtonSlot', 'nextButtonSlot'],
-  subcomponents: { RwCarouselItem, RwCarouselItemMock }
+  Component: RwCarousel2,
+  slots: ['itemSlot'],
 });
 
 # RwCarousel
@@ -54,12 +49,8 @@ Markdown documentation.
   <Story
     name="Default"
     args={{
-      default: `
-    <RwCarouselItem v-for="n in 20" :key="n">
-        <div class="colored_card"> <p>{{ n }} </p>
-        </div>
-    </RwCarouselItem>
-`,
+        itemSlot: `<div class="colored_card"> <p>test </p> </div>`,
+        items: new Array(20).fill(1)
     }}
   >
     {Template.bind({})}
