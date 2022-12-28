@@ -20,7 +20,16 @@ import { RwRatingComponent, RwRatingProps, RwRatingSlots } from './components/Rw
 
 import { RwSelectComponent, RwSelectProps, RwSelectSlots } from './components/RwSelect/types';
 
-import { RwScrollToTopProps, RwScrollToTopSlots } from './components/RwScrollToTop/types';
+import { RwScrollToTopComponent, RwScrollToTopProps, RwScrollToTopSlots } from './components/RwScrollToTop/types';
+
+import {
+  RwMenuComponent,
+  RwMenuItemComponent,
+  RwMenuProps,
+  RwMenuSlots,
+  RwMenuItemProps,
+  RwMenuItemSlots,
+} from './components/RwMenu/types';
 
 import {
   RwCarouselComponent,
@@ -48,6 +57,8 @@ export declare const RwScrollToTop: ComponentConstructor<RwScrollToTopComponent>
 export declare const RwCarousel: ComponentConstructor<RwCarouselComponent>;
 export declare const RwCarouselItem: ComponentConstructor<RwCarouselItemComponent>;
 export declare const RwExpansion: ComponentConstructor<RwExpansionComponent>;
+export declare const RwMenu: ComponentConstructor<RwMenuComponent>;
+export declare const RwMenuItem: ComponentConstructor<RwMenuItemComponent>;
 
 declare module '@vue/runtime-core' {
   interface GlobalComponents {
@@ -62,7 +73,9 @@ declare module '@vue/runtime-core' {
     RwScrollToTop: GlobalComponentConstructor<RwScrollToTopProps, RwScrollToTopSlots>,
     RwCarousel: GlobalComponentConstructor<RwCarouselProps, RwCarouselSlots>,
     RwCarouselItem: GlobalComponentConstructor<RwCarouselItemProps, RwCarouselItemSlots>,
-    RwExpansion: GlobalComponentConstructor<RwExpansionProps, RwExpansionSlots>
+    RwExpansion: GlobalComponentConstructor<RwExpansionProps, RwExpansionSlots>,
+    RwMenu: GlobalComponentConstructor<RwMenuProps, RwMenuSlots>,
+    RwMenuItem: GlobalComponentConstructor<RwMenuItemProps, RwMenuItemSlots>,
   }
 }
 
