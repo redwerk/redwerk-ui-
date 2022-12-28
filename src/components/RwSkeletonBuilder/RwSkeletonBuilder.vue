@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import RwSkeleton from '../RwSkeleton/RwSkeleton.vue';
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   structure: string[][],
   loading: boolean,
   horizontal: boolean,
@@ -21,11 +21,26 @@ const props = withDefaults(defineProps<{
     :class="['rw-skeleton-builder', { horizontal }]"
     v-else
   >
-    <RwSkeleton
+    <template
       v-for="(item, index) in structure"
       :key="index"
-      :class="['rw-skeleton', item, behavior]"
-    />
+    >
+      <div
+        class="skeletons-list"
+        v-if="item.length > 1"
+      >
+        <RwSkeleton
+          v-for="(subItem, subIndex) in item"
+          :key="subIndex"
+          :class="['rw-skeleton', subItem, behavior]"
+        />
+      </div>
+
+      <RwSkeleton
+        v-else
+        :class="['rw-skeleton', item, behavior]"
+      />
+    </template>
   </div>
 </template>
 

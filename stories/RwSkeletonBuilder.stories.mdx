@@ -47,12 +47,16 @@ Markdown documentation.
     name="Default"
     args={{
       structure: [
-        'circle',
-        'square',
-        'rectangle',
-        'bar',
+        ['circle'],
+        [
+          'square',
+          'rectangle',
+          'bar',
+        ]
       ],
       loading: true,
+      horizontal: true,
+      behavior: 'gradient',
     }}
   >
     {Template.bind({})}
