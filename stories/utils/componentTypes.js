@@ -11,6 +11,7 @@ export const Types = {
   Boolean: 'boolean',
   Number: 'number',
   Slot: 'VNode[]',
+  ArrayOfStrings: 'string[][]',
 };
 
 export function prettyFunctionParams(params) {
