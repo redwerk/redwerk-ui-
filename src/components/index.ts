@@ -20,7 +20,13 @@ export const RwMenuItem = defineAsyncComponent(() => import('./RwMenu/RwMenuItem
 export const RwScrollToTop = defineAsyncComponent(() => import('./RwScrollToTop/RwScrollToTop.vue'));
 
 export const RwCarousel = defineAsyncComponent(() => import('./RwCarousel/RwCarousel.vue'));
+
 export const RwCarouselItem = defineAsyncComponent(() => import('./RwCarousel/RwCarouselItem.vue'));
+
 export const RwExpansion = defineAsyncComponent(() => import('./RwExpansion/RwExpansion.vue'));
+
 export const RwSkeleton = defineAsyncComponent(() => import('./RwSkeleton/RwSkeleton.vue'));
+
 export const RwSkeletonBuilder = defineAsyncComponent(() => import('./RwSkeletonBuilder/RwSkeletonBuilder.vue'));
+
+export const RwInput = defineAsyncComponent(() => import('./RwInput/RwInput.vue'));

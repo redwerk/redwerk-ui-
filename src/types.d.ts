@@ -53,6 +53,8 @@ import {
   RwSkeletonBuilderSlots,
 } from './components/RwSkeletonBuilder/types';
 
+import { RwInputComponent, RwInputProps, RwInputSlots } from './components/RwInput/types';
+
 export declare const RwButton: ComponentConstructor<RwButtonComponent>;
 export declare const RwCheckbox: ComponentConstructor<RwCheckboxComponent>;
 export declare const RwCheckboxInput: ComponentConstructor<RwCheckboxInputComponent>;
@@ -69,6 +71,7 @@ export declare const RwSkeleton: ComponentConstructor<RwSkeletonComponent>;
 export declare const RwSkeletonBuilder: ComponentConstructor<RwSkeletonBuilderComponent>;
 export declare const RwMenu: ComponentConstructor<RwMenuComponent>;
 export declare const RwMenuItem: ComponentConstructor<RwMenuItemComponent>;
+export declare const RwInput: ComponentConstructor<RwInputComponent>;
 
 declare module '@vue/runtime-core' {
   interface GlobalComponents {
@@ -83,11 +86,12 @@ declare module '@vue/runtime-core' {
     RwScrollToTop: GlobalComponentConstructor<RwScrollToTopProps, RwScrollToTopSlots>,
     RwCarousel: GlobalComponentConstructor<RwCarouselProps, RwCarouselSlots>,
     RwCarouselItem: GlobalComponentConstructor<RwCarouselItemProps, RwCarouselItemSlots>,
-    RwExpansion: GlobalComponentConstructor<RwExpansionProps, RwExpansionSlots>
     RwSkeleton: GlobalComponentConstructor<RwSkeletonProps>,
     RwSkeletonBuilder: GlobalComponentConstructor<RwSkeletonBuilderProps, RwSkeletonBuilderSlots>,
     RwMenu: GlobalComponentConstructor<RwMenuProps, RwMenuSlots>,
     RwMenuItem: GlobalComponentConstructor<RwMenuItemProps, RwMenuItemSlots>,
+    RwExpansion: GlobalComponentConstructor<RwExpansionProps, RwExpansionSlots>,
+    RwInput: GlobalComponentConstructor<RwInputProps, RwInputSlots>
   }
 }
 

@@ -1,15 +1,23 @@
 @import "../assets/reset";
 
+:root {
+  --primary-color: #1976d2;
+  --secondary-color: #26A69A;
+  --danger-color: red;
+  --text-color: black;
+  --text-on-light-bg-color: #ffffff;
+}
+
 .example-theme {
   .rw-button {
     &.primary {
-      background: #1976d2;
-      color: #ffffff;
+      background: var(--primary-color);
+      color: var(--text-on-light-bg-color)
     }
 
     &.secondary {
-      background: #26A69A;
-      color: #ffffff;
+      background: var(--secondary-color);
+      color: var(--text-on-light-bg-color)
     }
   }
 
@@ -18,8 +26,8 @@
       .rw-menu-items {
         .rw-menu-item {
           &:hover {
-            background: #1976d2;
-            color: #ffffff;
+            background: var(--primary-color);
+            color: var(--text-on-light-bg-color)
           }
         }
       }
@@ -29,8 +37,8 @@
       .rw-menu-items {
         .rw-menu-item {
           &:hover {
-            background: #26A69A;
-            color: #ffffff;
+            background: var(--secondary-color);
+            color: var(--text-on-light-bg-color)
           }
         }
       }
@@ -40,16 +48,73 @@
   .rw-expansion {
     &.primary {
       .activator {
-        background: #1976d2;
-        color: #ffffff;
+        background: var(--primary-color);
+        color: var(--text-on-light-bg-color)
       }
     }
 
     &.secondary {
       .activator {
-        background: #26A69A;
-        color: #ffffff;
+        background: var(--secondary-color);
+        color: var(--text-on-light-bg-color)
       }
     }
   }
+
+  .rw-input {
+    .label-slot {
+      margin-bottom: 3px;
+    }
+
+    .field-container {
+      border-radius: 4px;
+      padding: 5px;
+      border: 2px solid var(--text-color);
+    }
+
+    .bottom-slot {
+      margin-top: 3px;
+      padding-left: 5px;
+      color: var(--danger-color);
+    }
+
+    &.primary {
+      .field-container {
+        border-color: var(--primary-color);
+      }
+
+      &.focused {
+        .field-container {
+          border-color: RGBA(var(--primary-color), .75);
+        }
+      }
+    }
+
+    &.secondary {
+      .field-container {
+        background: var(--secondary-color);
+
+        &.focused {
+          .field-container {
+            border-color: RGBA(var(--secondary-color), .75);
+          }
+        }
+      }
+    }
+
+    &.invalid {
+      .field-container {
+        border-color: var(--danger-color);
+        animation: 1s horizontal-shaking;
+      }
+    }
+  }
+}
+
+@keyframes horizontal-shaking {
+  0% { transform: translateX(0) }
+  25% { transform: translateX(2px) }
+  50% { transform: translateX(-2px) }
+  75% { transform: translateX(2px) }
+  100% { transform: translateX(0) }
 }
