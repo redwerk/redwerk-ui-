@@ -1,0 +1,59 @@
+import { Canvas, Meta, Story, ArgsTable, Source } from '@storybook/addon-docs';
+import { renderComponent } from './utils/renderComponent';
+import RwInput from "../src/components/RwInput/RwInput.vue";
+import {Types} from "./utils/componentTypes";
+import {getSourceCode} from "./utils/getSourceCode";
+
+<Meta
+  title="RwInput"
+  component={RwInput}
+  argTypes={{
+    modelValue: {
+      table: {
+        type: { summary: Types.Number },
+      },
+    },
+  }}
+/>
+
+export const Template = renderComponent({
+    Component: RwInput,
+    slots: [
+        'labelSlot',
+        'beforeSlot',
+        'afterSlot',
+        'bottomSlot',
+        'clearableSlot',
+    ],
+    vModels: ['modelValue']
+});
+
+# RwInput
+
+With `MDX`, we can define a story for `RwInput` right in the middle of our
+Markdown documentation.
+
+<Canvas withSource='none'>
+  <Story
+    name="Default"
+    args={{
+      modelValue: 'Lorem ipsum dolor sit am',
+        labelSlot: 'Input label',
+        beforeSlot: 'Text before input',
+        afterSlot: 'Text after input'
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+export const DEFAULT_CODE = await getSourceCode('RwInput', 'DefaultCode')
+
+
+<Source
+  language='html'
+  dark
+  format={false}
+  code={DEFAULT_CODE}
+/>
+
+<ArgsTable story="Default" />
