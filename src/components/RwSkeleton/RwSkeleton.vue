@@ -5,7 +5,7 @@
   <div class="rw-skeleton" />
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .rw-skeleton {
   border-radius: 4px;
   background-color: #D3D3D3;
