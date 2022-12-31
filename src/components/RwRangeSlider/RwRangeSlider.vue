@@ -1,15 +1,31 @@
 <script setup lang="ts">
+import { ref, computed } from 'vue';
 
 interface Props {
   min?: number,
   max?: number,
   value: number,
+  multiple: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
   min: 0,
   max: 100,
   value: 0,
+  multiple: false,
 });
+
+const percent = ref(0);
+const leftValue = ref(0);
+const rightValue = ref(0);
+
+const thumbLeftLength = computed(() => `${percent.value}%`);
+const rangeLength = computed(() => `${percent.value}%`);
+
+function setValue(event: any, anotherRange: any) {
+  event.target.value = Math.min(Number(event.target.value), Number(anotherRange) - 1);
+
+  percent.value = ((event.target.value - props.min) / (props.max - props.min)) * 100;
+}
 </script>
 
 <template>
@@ -20,6 +36,7 @@ const props = withDefaults(defineProps<Props>(), {
       :min="min"
       :max="max"
       :value="value"
+      @input="setValue"
     >
     <input
       class="input-right"
@@ -27,12 +44,23 @@ const props = withDefaults(defineProps<Props>(), {
       :min="min"
       :max="max"
       :value="value"
+      @input="setValue"
     >
 
     <div class="slider">
       <div class="track" />
-      <div class="range" />
-      <div class="thumb left" />
+      <div
+        class="range"
+        :style="{
+          left: rangeLength,
+        }"
+      />
+      <div
+        class="thumb left"
+        :style="{
+          left: thumbLeftLength,
+        }"
+      />
       <div class="thumb right" />
     </div>
   </div>

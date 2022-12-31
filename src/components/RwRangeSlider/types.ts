@@ -6,6 +6,7 @@ export interface RwRangeSliderProps extends RwRangeSliderEvents {
   min: number,
   max: number,
   value: number,
+  multiple: boolean,
 }
 
 export interface RwRangeSliderSlots {
