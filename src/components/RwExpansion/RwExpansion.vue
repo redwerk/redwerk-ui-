@@ -11,6 +11,19 @@ const props = withDefaults(defineProps<{
   defaultOpen: false,
 });
 
+function beforeEnter(el: HTMLElement) {
+  el.style.height = '0';
+}
+function enter(el: HTMLElement) {
+  el.style.height = `${el.scrollHeight}px`;
+}
+function beforeLeave(el: HTMLElement) {
+  el.style.height = `${el.scrollHeight}px`;
+}
+function leave(el: HTMLElement) {
+  el.style.height = '0';
+}
+
 </script>
 
 <template>
@@ -27,9 +40,17 @@ const props = withDefaults(defineProps<{
       />
     </DisclosureButton>
 
-    <DisclosurePanel class="content">
-      <slot name="contentSlot" />
-    </DisclosurePanel>
+    <transition
+      name="accordion"
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @before-leave="beforeLeave"
+      @leave="leave"
+    >
+      <DisclosurePanel class="content">
+        <slot name="contentSlot" />
+      </DisclosurePanel>
+    </transition>
   </Disclosure>
 </template>
 
@@ -52,6 +73,7 @@ const props = withDefaults(defineProps<{
 
   .content {
     padding: 10px 16px;
+    transition: 150ms ease-out;
   }
 }
 </style>
