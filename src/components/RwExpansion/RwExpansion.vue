@@ -73,7 +73,6 @@ function leave(el: HTMLElement) {
 
   .content {
     transition: .3s ease-out;
-    border: 1px solid red;
     overflow: hidden;
   }
 }
