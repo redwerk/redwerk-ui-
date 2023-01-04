@@ -11,19 +11,6 @@ const props = withDefaults(defineProps<{
   defaultOpen: false,
 });
 
-function beforeEnter(el: HTMLElement) {
-  el.style.height = '0';
-}
-function enter(el: HTMLElement) {
-  el.style.height = `${el.scrollHeight}px`;
-}
-function beforeLeave(el: HTMLElement) {
-  el.style.height = `${el.scrollHeight}px`;
-}
-function leave(el: HTMLElement) {
-  el.style.height = '0';
-}
-
 </script>
 
 <template>
@@ -40,23 +27,21 @@ function leave(el: HTMLElement) {
       />
     </DisclosureButton>
 
-    <transition
-      name="accordion"
-      @before-enter="beforeEnter"
-      @enter="enter"
-      @before-leave="beforeLeave"
-      @leave="leave"
-    >
-      <DisclosurePanel class="content">
+    <div class="wrapper-content">
+      <DisclosurePanel
+        :class="['content', { open }]"
+        static
+      >
         <slot name="contentSlot" />
       </DisclosurePanel>
-    </transition>
+    </div>
   </Disclosure>
 </template>
 
 <style lang="scss">
 .rw-expansion {
   width: 100%;
+  display: grid;
 
   .activator {
     font-size: 14px;
@@ -71,9 +56,21 @@ function leave(el: HTMLElement) {
     border: none;
   }
 
-  .content {
-    transition: .3s ease-out;
-    overflow: hidden;
+  .wrapper-content {
+    display: flex;
+    flex-direction: column;
+
+    .content {
+      transition: .3s;
+      overflow: hidden;
+      flex-basis: 0;
+      opacity: 0;
+
+      &.open {
+        flex: 1;
+        opacity: 1;
+      }
+    }
   }
 }
 </style>
