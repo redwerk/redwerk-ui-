@@ -72,8 +72,9 @@ function leave(el: HTMLElement) {
   }
 
   .content {
-    padding: 10px 16px;
-    transition: 150ms ease-out;
+    transition: .3s ease-out;
+    border: 1px solid red;
+    overflow: hidden;
   }
 }
 </style>
