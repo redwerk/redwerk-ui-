@@ -14,13 +14,13 @@ const props = withDefaults(defineProps<{
 function beforeEnter(el: HTMLElement) {
   el.style.height = '0';
 }
-function enter(el: any) {
+function enter(el: HTMLElement) {
   el.style.height = `${el.scrollHeight}px`;
 }
-function beforeLeave(el: any) {
+function beforeLeave(el: HTMLElement) {
   el.style.height = `${el.scrollHeight}px`;
 }
-function leave(el: any) {
+function leave(el: HTMLElement) {
   el.style.height = '0';
 }
 
